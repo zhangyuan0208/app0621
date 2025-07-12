@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8" />
+    <title>選擇關卡</title>
+    <link rel="stylesheet" href="{% static 'css/planet_select.css' %}">
+</head>
+<body>
+    <img src="{% static 'img/ui/arrow.png' %}" id="leftArrow" class="arrow" alt="向左捲動" />
+    <img src="{% static 'img/ui/arrow.png' %}" id="rightArrow" class="arrow" alt="向右捲動" />
+    <button class="reset" id="resetButton">重置進度</button>
+
+    <div class="wrapper">
+        {% for chapter in chapters %}
+            <div class="planet {{ chapter.css_class }}">
+                
+                {% if chapter.is_unlocked %}
+                    <a href="{% url 'chapter_detail' chapter.chapter_id %}">
+                        <!-- 【已修改】圖片路徑現在來自 chapter.planet_image_path -->
+                        <img src="{% static chapter.planet_image_path %}" alt="{{ chapter.title }}" />
+                    </a>
+                {% else %}
+                    <a href="#">
+                        <img src="{% static chapter.planet_image_path %}" alt="{{ chapter.title }}" />
+                        <img src="{% static 'img/ui/lock.png' %}" class="lock" alt="鎖定" />
+                    </a>
+                {% endif %}
+
+                <div class="tooltip">{{ chapter.title }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'js/planet_select.js' %}"></script>
+</body>
+</html>

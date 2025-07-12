@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊新帳號</title>
+    <!-- 直接沿用登入頁面的 CSS -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+</head>
+<body>
+    <img src="{% static 'img/backgrounds/login2.jpg' %}" class="background-image" alt="背景圖">
+    <div class="login-container">
+        <div class="overlay">
+            <h2>註冊新帳號</h2>
+            <!-- 【注意】form 的 id 和 action 都已更新 -->
+            <form id="register-form" method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="account">帳號</label>
+                    <input type="text" id="account" name="account" placeholder="設定您的登入帳號" required>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label for="nickname">暱稱</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="遊戲中顯示的名稱" required>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" placeholder="設定您的密碼" required>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label for="password2">確認密碼</label>
+                    <input type="password" id="password2" name="password2" placeholder="請再次輸入密碼" required>
+                </div>
+                <br>
+
+                <!-- 錯誤訊息顯示區 -->
+                <div id="error-message" class="error-message"></div>
+
+                <div class="btn-group">
+                    <button class="bubble-button" type="submit">完成註冊</button>
+                </div>
+                <br>
+                <div class="switch-auth">
+                    <p>已經有帳號了？ <a href="{% url 'login' %}">返回登入</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 引入更新後的 JS 檔案 -->
+    <script src="{% static 'js/auth.js' %}" defer></script>
+</body>
+</html>

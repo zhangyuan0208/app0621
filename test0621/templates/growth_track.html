@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}成長軌跡 - {{ user.nickname }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h1>{{ user.nickname }} 的成長軌跡</h1>
+    <p>記錄您在遊戲中的每一個重要時刻。</p>
+    <!-- 在這裡可以遍歷所有的軌跡 -->
+    <a href="{% url 'home' %}" class="back-link">返回主選單</a>
+</div>
+{% endblock %}

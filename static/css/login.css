@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200,900');
+
+:root {
+    --text-color: hsla(210, 50%, 85%, 1);
+    --shadow-color: hsla(210, 40%, 52%, .4);
+    --btn-color: #3498db; /* 例如藍色 */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.background-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+}
+
+.login-container h2 {
+    color: white;
+    text-align: center;
+}
+
+.input-group label {
+    color: white;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* 確保 padding 不影響寬度 */
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.btn-group button:nth-child(2) {
+    width: 30%;
+    font-size: 18px; /* 可選：讓字體稍微小一點 */
+    background-color:mediumorchid;
+}
+button, .bubble-button { /* 將 .bubble-button 也加入，讓 <a> 標籤也能套用樣式 */
+    position: relative;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: "Source Code Pro";
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 20px;
+    color: var(--text-color);
+    background-color: mediumslateblue;
+    box-shadow: var(--shadow-color) 2px 2px 22px;
+    border-radius: 4px;
+    z-index: 0;
+    overflow: hidden;
+    text-decoration: none; /* 移除 a 標籤的底線 */
+    display: block; /* 讓 a 標籤可以設定寬度 */
+    text-align: center; /* 文字置中 */
+    box-sizing: border-box;
+}
+
+.btn-group button:nth-child(1) {
+    width: 60%;
+}
+
+
+.register-button {
+    background-color: #ff8fc4; /* 粉色調 */
+}
+
+.register-button:hover {
+    background-color: #ff6fae; /* 滑過時更深的粉色 */
+}
+
+/* 【新增】訪客登入按鈕樣式 */
+.guest-button {
+    width: 100%;
+    margin-top: 15px; /* 與上方按鈕群組間隔 */
+    background-color: #2ecc71; /* 清新的綠色 */
+}
+.guest-button:hover {
+    background-color: #27ae60; /* 滑過時更深的綠色 */
+}
+
+
+button:focus, .bubble-button:focus {
+    outline-color: transparent;
+    box-shadow: var(--btn-color) 2px 2px 22px;
+}
+
+button:hover, .bubble-button:hover {
+    background-color: hsl(270, 90%, 50%);
+}
+.register-button:hover {
+    background-color: #ff6fae;
+}
+.guest-button:hover {
+    background-color: #27ae60;
+}
+
+
+/* 泡泡效果 */
+.bubble-button::before {
+    content: '';
+    pointer-events: none;
+    opacity: .6;
+    background:
+        radial-gradient(circle at 20% 35%, transparent 0, transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
+        radial-gradient(circle at 75% 44%, transparent 0, transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
+        radial-gradient(circle at 46% 52%, transparent 0, transparent 4px, var(--text-color) 5px, var(--text-color) 6px, transparent 6px);
+    width: 100%;
+    height: 300%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    animation: bubbles 5s linear infinite both;
+}
+
+@keyframes bubbles {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-66.666%);
+    }
+}
+
+
+
+/* 第三方登入按鈕 */
+.third-party-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: "Source Code Pro";
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow-color) 2px 2px 22px;
+}
+
+.google-button {
+    background-color: #db4437; /* Google 紅 */
+}
+
+.google-button:hover {
+    background-color: #c33d2e;
+}

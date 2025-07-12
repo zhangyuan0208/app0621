@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}完整故事列表{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h1>完整故事</h1>
+    <p>您可以在這裡閱讀所有已解鎖的故事。</p>
+    <!-- 在這裡可以遍歷所有已解鎖的故事 -->
+    <a href="{% url 'home' %}" class="back-link">返回主選單</a>
+</div>
+{% endblock %}

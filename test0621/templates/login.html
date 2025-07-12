@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!-- 我們將不再從外部載入 JS，而是直接寫在下面 -->
+</head>
+<body>
+    <img src="{% static 'img/backgrounds/login2.jpg' %}" class="background-image" alt="背景圖">
+    <div class="login-container">
+        <div class="overlay">
+            <h2>登入</h2>
+            <!-- 為 form 加上 id="login-form"，讓 JS 能精準定位 -->
+            <form id="login-form" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="account">帳號</label>
+                    <!-- 確保 name="account" -->
+                    <input type="text" id="account" name="account" placeholder="輸入帳號" required>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" placeholder="輸入密碼" required>
+                </div>
+                <br>
+
+                <div id="error-message" class="error-message"></div>
+
+                <div class="btn-group">
+                    <button class="bubble-button" type="submit">登入</button>
+                    <button class="bubble-button register-button" type="button" onclick="location.href='{% url 'register' %}'">註冊</button>
+                </div>
+                <br>
+
+                <a href="{% url 'guest_login' %}" class="bubble-button guest-button">
+                    訪客登入
+                </a>
+                
+                <button id="google-login" class="third-party-button google-button" type="button">
+                    使用 Google 登入
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 【重要】將 JavaScript 直接寫在這裡 -->
+    <script>
+        // 使用 DOMContentLoaded 確保在 HTML 完全載入並解析後才執行我們的腳本
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const loginForm = document.getElementById('login-form');
+            const errorMessageDiv = document.getElementById('error-message');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (event) => {
+                    // 1. 防止表單的預設提交行為
+                    event.preventDefault(); 
+
+                    // 2. 從表單中獲取資料
+                    const formData = new FormData(loginForm);
+                    const account = formData.get('account'); 
+                    const password = formData.get('password');
+                    const csrfToken = formData.get('csrfmiddlewaretoken');
+
+                    // 3. 檢查我們是否成功抓到了帳號值
+                    console.log("準備發送的資料:", { account, password });
+                    if (!account) {
+                        alert("錯誤：JavaScript 沒有抓到您輸入的帳號！請檢查 HTML 的 name 屬性。");
+                        return;
+                    }
+
+                    if (errorMessageDiv) errorMessageDiv.style.display = 'none';
+
+                    // 4. 發送請求到後端
+                    try {
+                        const response = await fetch(loginForm.action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken,
+                            },
+                            body: JSON.stringify({ account, password }),
+                        });
+
+                        const result = await response.json();
+
+                        if (result.status === 'success') {
+                            window.location.href = '/home/';
+                        } else {
+                            showError(result.error || '發生未知錯誤');
+                        }
+
+                    } catch (error) {
+                        console.error('登入請求失敗:', error);
+                        showError('無法連接到伺服器。');
+                    }
+                });
+            }
+
+            function showError(message) {
+                if (errorMessageDiv) {
+                    errorMessageDiv.textContent = message;
+                    errorMessageDiv.style.display = 'block';
+                } else {
+                    alert(message);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

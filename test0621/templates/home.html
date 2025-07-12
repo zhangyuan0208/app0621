@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遊戲主選單 - 互動星系</title>
+    <!-- 【注意】CSS 檔案名稱已改為 home.css -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 【新增】使用者資訊與登入/登出區塊 -->
+    <div class="user-profile">
+        {% if user %}
+            <!-- 已登入狀態 -->
+            <img src="{% static user.user_avatar %}" alt="使用者頭像" class="avatar">
+            <span class="nickname">{{ user.nickname }}</span>
+            <a href="{% url 'logout' %}" class="auth-link logout-btn">登出</a>
+        {% else %}
+            <!-- 未登入狀態 -->
+            <a href="{% url 'login' %}" class="auth-link login-btn">登入 / 註冊</a>
+        {% endif %}
+    </div>
+    
+    <div class="menu-container">
+        <!-- 遊戲功能按鈕 -->
+        <div class="planet start-game" data-text="開始遊戲" data-url="{% url 'planet_select' %}"></div>
+        <div class="planet settings" data-text="設定" data-url="{% url 'settings' %}"></div> 
+        <div class="planet classroom" data-text="AI 小學堂" data-url="{% url 'ai_classroom' %}"></div>
+        <div class="planet story" data-text="完整故事" data-url="{% url 'full_story_list' %}"></div>
+
+        <!-- 智慧型「成長軌跡」按鈕 -->
+        {% if user %}
+            <div class="planet progress" data-text="成長軌跡" data-url="{% url 'growth_track' user.user_id %}"></div>
+        {% else %}
+            <div class="planet progress" data-text="成長軌跡 (請先登入)" data-url="{% url 'login' %}"></div>
+        {% endif %}
+    </div>
+    
+    <div id="planet-label"></div>
+
+    <!-- 【注意】JS 檔案名稱已改為 home.js -->
+    <script src="{% static 'js/home.js' %}"></script>
+
+</body>
+</html>
