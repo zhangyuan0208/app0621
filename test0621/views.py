@@ -3,18 +3,20 @@ from datetime import date, timedelta
 import uuid  # 用於產生訪客ID
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash # 用於修改密碼後保持登入狀態
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
 from django.urls import reverse
-
-# 建議將表單邏輯分離
-from .forms import UserRegistrationForm, UserLoginForm
+from django.contrib.auth import login
+from .forms import (
+    UserRegistrationForm, UserLoginForm, EmailBindForm, GuestUpgradeForm,
+    NicknameChangeForm, CustomPasswordChangeForm
+)
 
 # 引入所有需要的模型
 from .models import (
-    User, Planet, Chapter, Dialogue, Question, UserProgress,
+    LoginType, User, Planet, Chapter, Dialogue, Question, UserProgress,
     QuizRecord, GrowthTrack, FullStory, UserSetting,
     UnlockedAvatar, DailyCheckIn
 )
@@ -24,13 +26,15 @@ from .models import (
 # ===================================================================
 
 def register_view(request):
-    """處理使用者註冊 - 更新版"""
     if request.method == 'POST':
         # 如果是提交表單，則用 POST 資料建立表單實例
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             # 如果表單資料全部合法
             user = form.save()  # 執行我們在 forms.py 中定義的 save 方法，建立使用者
+            # 註冊後，將登入方式設為 '一般'
+            user.login_type = LoginType.NORMAL
+            user.save(update_fields=['login_type'])            
             login(request, user)  # 註冊後自動登入
             messages.success(request, "註冊成功！歡迎加入我們的世界。")
             return redirect('main_menu') # 重定向到主選單
@@ -247,17 +251,85 @@ def ai_school_view(request):
 
 @login_required
 def settings_view(request):
-    """星球4: 設定頁面"""
-    if request.method == 'POST':
-        # ... 處理音量、字體等設定的儲存 ...
-        if request.user.is_guest:
-            # 處理訪客帳號綁定邏輯
-            # ...
-            messages.success(request, "帳號已成功綁定！")
-        return redirect('settings_view')
+    """星球4: 設定頁面 - 權限管理最終版"""
+    user = request.user
+    context = {}
+
+    # 1. 根據使用者類型，準備要顯示的表單
+    # ============================================
+    if user.is_guest:
+        # 情境：訪客 -> 準備升級表單
+        context['upgrade_form'] = GuestUpgradeForm(instance=user)
+    
+    elif user.login_type == LoginType.GOOGLE:
+        # 情境：Google 用戶 -> 準備暱稱修改表單
+        context['nickname_form'] = NicknameChangeForm(instance=user)
         
-    settings, created = UserSetting.objects.get_or_create(user=request.user)
-    return render(request, 'features/settings.html', {'settings': settings})
+    elif user.login_type == LoginType.NORMAL:
+        # 情境：一般用戶 -> 準備所有可修改項目的表單
+        context['nickname_form'] = NicknameChangeForm(instance=user)
+        context['password_form'] = CustomPasswordChangeForm(user=user)
+        if not user.email:
+            # 如果沒有 email，才準備 email 綁定表單
+            context['email_form'] = EmailBindForm()
+
+    # 2. 處理 POST 請求 (當使用者提交表單時)
+    # ============================================
+    if request.method == 'POST':
+        # 透過按鈕的 name 屬性來判斷使用者提交的是哪個表單
+        
+        # 處理暱稱修改
+        if 'change_nickname' in request.POST:
+            form = NicknameChangeForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "暱稱已成功更新！")
+                return redirect('settings_view')
+        
+        # 處理密碼修改
+        elif 'change_password' in request.POST:
+            form = CustomPasswordChangeForm(user, request.POST)
+            if form.is_valid():
+                new_user = form.save()
+                # 修改密碼後，必須更新 session，否則使用者會被自動登出
+                update_session_auth_hash(request, new_user)
+                messages.success(request, "密碼已成功修改！")
+                return redirect('settings_view')
+            else:
+                # 將帶有錯誤訊息的表單傳回 context
+                context['password_form'] = form
+
+        # 處理 Email 綁定
+        elif 'bind_email' in request.POST:
+            form = EmailBindForm(request.POST)
+            if form.is_valid():
+                user.email = form.cleaned_data.get('email')
+                user.save(update_fields=['email'])
+                messages.success(request, "您的 Email 已成功綁定！")
+                return redirect('settings_view')
+            else:
+                context['email_form'] = form
+
+        # 處理訪客升級
+        elif 'upgrade_account' in request.POST:
+            form = GuestUpgradeForm(request.POST, instance=user)
+            if form.is_valid():
+                upgraded_user = form.save(commit=False)
+                upgraded_user.set_password(form.cleaned_data['password'])
+                upgraded_user.is_guest = False
+                upgraded_user.login_type = LoginType.NORMAL
+                upgraded_user.save()
+                login(request, upgraded_user) # 重新登入以更新身份
+                messages.success(request, "恭喜！您的帳號已成功升級！")
+                return redirect('settings_view')
+            else:
+                context['upgrade_form'] = form
+
+    # 3. 準備通用資料並渲染模板
+    # ============================================
+    settings_obj, created = UserSetting.objects.get_or_create(user=user)
+    context['settings'] = settings_obj
+    return render(request, 'features/settings.html', context)
 
 @login_required
 def growth_track_view(request):

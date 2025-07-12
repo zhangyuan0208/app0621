@@ -65,6 +65,13 @@ class User(AbstractUser):
 
     diamonds = models.IntegerField(default=1, verbose_name="鑽石數量")
 
+    email = models.EmailField(
+        "email address", # 這是 Django 內建的 verbose_name
+        blank=True,      # 在 Django 的表單驗證中允許此欄位為空
+        null=True,       # 在資料庫層面允許此欄位為 NULL
+        unique=True      # 此欄位的值必須是唯一的
+    )
+    
     def __str__(self):
         # 讓物件在後台顯示時，優先顯示暱稱，如果沒有暱稱就顯示 username
         return self.nickname or self.username
