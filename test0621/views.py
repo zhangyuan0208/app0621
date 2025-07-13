@@ -224,6 +224,40 @@ def quiz_result_view(request, record_id):
     record = get_object_or_404(QuizRecord, pk=record_id, user=request.user)
     return render(request, 'game/quiz_result.html', {'record': record})
 
+# 建議放在 quiz_result_view 函式的後面
+@login_required
+def use_diamond_view(request):
+    """
+    處理玩家在問答中，使用鑽石恢復生命的請求。
+    這通常是一個由前端 JavaScript 發起的 AJAX 請求。
+    """
+    # 出於安全考量，只接受 POST 請求
+    if request.method == 'POST':
+        user = request.user
+        if user.diamonds > 0:
+            # 扣除鑽石並儲存
+            user.diamonds -= 1
+            user.save(update_fields=['diamonds'])
+            
+            # 這裡可以加入恢復生命值的邏輯
+            # 例如，更新 session 中的答錯次數
+            # quiz_state = request.session.get('quiz_state', {})
+            # if 'wrong_answers' in quiz_state:
+            #     quiz_state['wrong_answers'] = max(0, quiz_state['wrong_answers'] - 2) # 減2，最少為0
+            #     request.session['quiz_state'] = quiz_state
+            
+            # 回傳成功的 JSON 訊息給前端
+            return JsonResponse({
+                'success': True, 
+                'new_diamond_count': user.diamonds,
+                'message': '成功使用鑽石！'
+            })
+        else:
+            # 如果鑽石不足，回傳失敗訊息
+            return JsonResponse({'success': False, 'error': '鑽石不足'})
+    
+    # 如果不是 POST 請求，則回傳錯誤
+    return JsonResponse({'success': False, 'error': '無效的請求方法'}, status=405)
 
 # ===================================================================
 # IV. 周邊系統 (Other Planets & Features)
