@@ -1,95 +1,74 @@
-# game/admin.py
-
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
-    LoginType, ChapterStatus, DifficultyLevel,
-    User, Planet, Chapter, Character, ChapterCharacter,
-    UserProgress, Dialogue, Question, QuizRecord,
-    GrowthTrack, FullStory, UserSetting, StarUnlockLog
+    User, Planet, Chapter, Character, Dialogue, Question,
+    UserProgress, QuizRecord, GrowthTrack, FullStory, UserSetting,
+    UnlockedAvatar, DailyCheckIn, StarUnlockLog, ChapterCharacter
 )
 
-# --- 客製化後台顯示 ---
-
+# --- 客製化 User 模型的後台顯示 ---
+# 我們繼承內建的 UserAdmin，並加入我們自訂的欄位
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    """
-    使用者模型的後台設定
-    """
-    # 【已修改】在列表中加入 'password' 欄位，方便您檢查是否已加密
-    list_display = ('user_id', 'nickname', 'account', 'password', 'login_type', 'is_guest', 'created_at')
-    search_fields = ('nickname', 'account')
-    list_filter = ('login_type', 'is_guest', 'created_at')
-    ordering = ('-created_at',)
-    # 為了不讓密碼欄位可以被編輯（因為它是加密過的），可以設定為唯讀
-    readonly_fields = ('password',)
+class UserAdmin(BaseUserAdmin):
+    # 在使用者列表頁要顯示的欄位
+    list_display = ('username', 'nickname', 'email', 'login_type', 'is_guest', 'is_staff')
+    # 可以用來篩選的欄位
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'login_type', 'is_guest')
+    # 在使用者編輯頁面顯示的欄位分區
+    # 這裡我們將自訂欄位加入到 fieldsets 中
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('個人資訊', {'fields': ('nickname', 'email', 'user_avatar', 'diamonds')}),
+        ('登入類型', {'fields': ('login_type', 'is_guest')}),
+        ('權限', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('重要日期', {'fields': ('last_login', 'date_joined')}),
+    )
 
-@admin.register(Planet)
-class PlanetAdmin(admin.ModelAdmin):
-    """
-    星球模型的後台設定
-    """
-    list_display = ('planet_id', 'planet_name')
-    search_fields = ('planet_name',)
+# --- 客製化 Chapter 的後台顯示 ---
+# 可以在章節頁面內直接編輯對話
+class DialogueInline(admin.TabularInline):
+    model = Dialogue
+    extra = 1 # 在頁面中預設顯示1個空白的對話框，方便新增
+    ordering = ('sequence',) # 讓內嵌的對話按順序排列
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    """
-    章節模型的後台設定
-    """
-    list_display = ('chapter_id', 'title', 'planet', 'chapter_number')
-    search_fields = ('title',)
+    list_display = ('planet', 'chapter_number', 'title')
     list_filter = ('planet',)
-    ordering = ('planet', 'chapter_number')
+    search_fields = ['title', 'chapter_number']
+    inlines = [DialogueInline] # 將 Dialogue 的編輯功能嵌入到 Chapter 頁面
 
-@admin.register(Character)
-class CharacterAdmin(admin.ModelAdmin):
-    """
-    角色模型的後台設定
-    """
-    list_display = ('character_id', 'name')
-    search_fields = ('name',)
-
-@admin.register(Dialogue)
-class DialogueAdmin(admin.ModelAdmin):
-    """
-    對話模型的後台設定
-    """
-    list_display = ('dialogue_id', 'chapter', 'character', 'sequence', 'text')
-    list_filter = ('chapter', 'character')
-    search_fields = ('text',)
-    ordering = ('chapter', 'sequence')
-
-@admin.register(UserProgress)
-class UserProgressAdmin(admin.ModelAdmin):
-    """
-    使用者進度模型的後台設定
-    """
-    list_display = ('user', 'chapter', 'status', 'last_played')
-    list_filter = ('status', 'user', 'chapter')
-    ordering = ('-last_played',)
-
+# --- 客製化 Question 的後台顯示 ---
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    """
-    問題模型的後台設定
-    """
-    list_display = ('question_id', 'chapter', 'difficulty', 'question_text')
+    list_display = ('chapter', 'question_text', 'difficulty')
     list_filter = ('chapter', 'difficulty')
-    search_fields = ('question_text',)
+    search_fields = ['question_text']
 
+# --- 客製化 QuizRecord 的後台顯示 ---
 @admin.register(QuizRecord)
 class QuizRecordAdmin(admin.ModelAdmin):
-    """
-    測驗記錄模型的後台設定
-    """
-    list_display = ('record_id', 'user', 'chapter', 'stars_earned', 'correct_count', 'created_at')
-    list_filter = ('user', 'chapter', 'stars_earned')
-    ordering = ('-created_at',)
+    list_display = ('user', 'chapter', 'stars_earned', 'correct_count', 'created_at')
+    list_filter = ('chapter', 'user', 'stars_earned')
+    date_hierarchy = 'created_at' # 新增日期快速篩選條
 
-# --- 對於關聯性或較簡單的模型，可以直接註冊 ---
+# --- 客製化 Character 的後台顯示 ---
+@admin.register(Character)
+class CharacterAdmin(admin.ModelAdmin):
+    list_display = ('name', 'intro')
+    search_fields = ['name']
 
-admin.site.register(ChapterCharacter)
+# --- 其他模型使用預設方式註冊 ---
+# 這種方式簡單快速，適合不需要太多客製化的模型
+admin.site.register(Planet)
+admin.site.register(UserProgress)
 admin.site.register(GrowthTrack)
 admin.site.register(FullStory)
 admin.site.register(UserSetting)
+admin.site.register(UnlockedAvatar)
+admin.site.register(DailyCheckIn)
 admin.site.register(StarUnlockLog)
+admin.site.register(ChapterCharacter)
+
+# Dialogue 已經內嵌到 ChapterAdmin，如果也想單獨管理，可以取消下面這行的註解
+# admin.site.register(Dialogue)
