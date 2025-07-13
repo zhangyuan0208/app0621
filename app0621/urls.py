@@ -14,43 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
-from test0621 import views
+from django.urls import path, include # 確保 include 已被引入
 
 urlpatterns = [
+    # 1. Django 後台管理介面的 URL
     path('admin/', admin.site.urls),
-    path('home/', views.home, name='home'),
-    path('login/', views.user_login, name='login'),
-    path('register/', views.user_register, name='register'),
-    path('guest_login/', views.guest_login, name='guest_login'),
-    path('logout/', views.user_logout, name='logout'),
 
-    # --- 遊戲核心路徑 ---
-    # 「開始遊戲」會連到這裡 
-    path('planets/', views.planet_select, name='planet_select'),
-    path('planets/<int:planet_id>/chapters/', views.chapter_select, name='chapter_select'),
-    path('chapters/<int:chapter_id>/', views.chapter_detail, name='chapter_detail'),
-    
-    
-    # --- 新增的主選單功能路徑 ---
-    # 「成長軌跡」
-    path('growth/<int:user_id>/', views.growth_track_view, name='growth_track'),
-    
-    # 【新增】「完整故事」列表頁
-    path('stories/', views.full_story_list_view, name='full_story_list'),
-    # 原本的單一故事頁面
-    path('story/<int:chapter_id>/', views.full_story_view, name='full_story_detail'),
+    # 2. Django-allauth 的 URL，所有帳號相關功能（登入、登出、密碼重設、Google認證）都由它處理
+    path('accounts/', include('allauth.urls')),
 
-    # 【新增】「設定」頁面
-    path('settings/', views.settings_view, name='settings'),
-
-    # 【新增】「AI 小學堂」頁面
-    path('classroom/', views.ai_classroom_view, name='ai_classroom'),
-
+    # 3. 將所有其他的請求，全部轉交給我們的 app (test0621) 去處理
+    # 空字串 '' 代表網站的根目錄 (例如 http://127.0.0.1:8000/)
+    path('', include('test0621.urls')), # 請確認您的 app 名稱是否為 test0621
 ]
-
-
-
-
-
