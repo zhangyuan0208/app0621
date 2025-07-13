@@ -11,36 +11,63 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# --- 環境切換設定 (核心) ---
+# 嘗試讀取名為 DJANGO_ENVIRONMENT 的環境變數，如果找不到，就預設為 'development'
+ENVIRONMENT = os.environ.get('DJANGO_ENVIRONMENT', 'development')
 
+# ===================================================================
+# 安全性設定 (根據環境切換)
+# ===================================================================
+
+if ENVIRONMENT == 'production':
+    # --- 生產環境設定 (上線用) ---
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') # 必須從環境變數讀取
+    DEBUG = False
+    ALLOWED_HOSTS = ['www.your-domain.com', 'your-domain.com'] # 請換成您的真實域名
+else:
+    # --- 開發環境設定 (本機用) ---
+    SECRET_KEY = 'django-insecure-bnwje&9rjrn4*7(!$$jxtadtjxham%!bo_n70znc$e-x6g3aj7' # 開發時可使用臨時金鑰
+    DEBUG = True
+    ALLOWED_HOSTS = []
+    
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bnwje&9rjrn4*7(!$$jxtadtjxham%!bo_n70znc$e-x6g3aj7'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
 
+# ===================================================================
+# 應用程式定義 (Application definition)
+# ===================================================================
+
 INSTALLED_APPS = [
+    # Django 內建 Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 第三方 Apps
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    # 自己的 App 
     'test0621'
 ]
 
-AUTH_USER_MODEL = 'test0621.User'
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +84,7 @@ ROOT_URLCONF = 'app0621.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,13 +103,45 @@ WSGI_APPLICATION = 'app0621.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
+# ===================================================================
+# 資料庫設定 (Database)
+# ===================================================================
+
+if ENVIRONMENT == 'production':
+    # --- 生產環境資料庫 (例如 PostgreSQL) ---
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': os.environ.get('DB_NAME'),
+    #         'USER': os.environ.get('DB_USER'),
+    #         'PASSWORD': os.environ.get('DB_PASSWORD'),
+    #         'HOST': os.environ.get('DB_HOST'),
+    #         'PORT': os.environ.get('DB_PORT'),
+    #     }
+    # }
+    # 暫時先與開發環境共用，未來部署時請取消註解並設定環境變數
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # --- 開發環境資料庫 ---
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+# ===================================================================
+# 使用者與密碼驗證
+# ===================================================================
+
+# 【重要】告訴 Django 使用我們自訂的 User 模型
+AUTH_USER_MODEL = 'test0621.User'   # '您的app名稱.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -118,7 +177,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-import os
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -128,3 +187,46 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ===================================================================
+# Allauth 設定，新增
+# ===================================================================
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = 'main_menu'
+LOGOUT_REDIRECT_URL = 'login_view'
+
+# Email 相關設定
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+# Google Provider 相關設定
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'}
+    }
+}
+
+
+# ===================================================================
+# Email 後端設定 (根據環境切換)
+# ===================================================================
+
+if ENVIRONMENT == 'production':
+    # --- 生產環境 Email 設定 ---
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_HOST = 'smtp.gmail.com'
+    # EMAIL_PORT = 587
+    # EMAIL_USE_TLS = True
+    # EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+    # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+    pass # 暫時留空
+else:
+    # --- 開發環境 Email 設定 ---
+    # 所有郵件都會直接印在 console 中，方便測試
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
