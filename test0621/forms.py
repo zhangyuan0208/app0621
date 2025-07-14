@@ -51,6 +51,25 @@ class UserRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+        # 【新增這個方法】
+    def signup(self, request, user):
+        """
+        allauth 需要的 signup 方法。
+        
+        我們自訂的 save() 方法其實已經處理了所有欄位的儲存，
+        但 allauth 的流程規定它會呼叫這個 signup 方法來完成最終的儲存。
+        我們只需要確保所有資料都被正確賦值並儲存即可。
+        """
+        # 將表單中已經驗證過的乾淨資料，再次賦值給 user 物件
+        user.nickname = self.cleaned_data.get('nickname')
+        user.email = self.cleaned_data.get('email')
+        
+        # 儲存 user 物件
+        user.save()
+        
+        # 回傳最終的 user 物件
+        return user
 
 # 表單 2：訪客升級專用表單
 class GuestUpgradeForm(forms.ModelForm):

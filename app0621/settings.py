@@ -202,9 +202,10 @@ LOGIN_REDIRECT_URL = 'main_menu'
 LOGOUT_REDIRECT_URL = 'login_view'
 
 # Email 相關設定
-ACCOUNT_EMAIL_REQUIRED = False
+# 告訴 allauth 使用我們自訂的註冊表單
+ACCOUNT_SIGNUP_FORM_CLASS = 'test0621.forms.UserRegistrationForm' # 請將 test0621 換成您的 app 名稱
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_LOGIN_METHODS = ['username', 'email']
 
 # Google Provider 相關設定
 SOCIALACCOUNT_PROVIDERS = {
