@@ -125,8 +125,11 @@ class Chapter(models.Model):
     # on_delete=models.PROTECT 可以防止您不小心刪除一個正在被章節使用的遊戲類型
     game_type = models.ForeignKey(
         GameType, 
-        on_delete=models.PROTECT,
-        verbose_name="使用的遊戲類型"
+        # 【推薦修改】使用 SET_NULL，因為此欄位已允許為空
+        on_delete=models.SET_NULL, 
+        verbose_name="使用的遊戲類型",
+        null=True, 
+        blank=True
     )
 
     chapter_number = models.CharField(max_length=10)
