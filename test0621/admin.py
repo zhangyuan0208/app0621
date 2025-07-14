@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
     User, Planet, Chapter, Character, Dialogue, Question,
     UserProgress, QuizRecord, GrowthTrack, FullStory, UserSetting,
-    UnlockedAvatar, DailyCheckIn, StarUnlockLog, ChapterCharacter
+    UnlockedAvatar, DailyCheckIn, StarUnlockLog, ChapterCharacter, GameType
 )
 
 # --- 客製化 User 模型的後台顯示 ---
@@ -28,15 +28,20 @@ class UserAdmin(BaseUserAdmin):
 # 可以在章節頁面內直接編輯對話
 class DialogueInline(admin.TabularInline):
     model = Dialogue
-    extra = 1 # 在頁面中預設顯示1個空白的對話框，方便新增
-    ordering = ('sequence',) # 讓內嵌的對話按順序排列
+    # 【修改】更新顯示的欄位以匹配新模型
+    fields = ('sequence', 'speaker', 'character_on_left', 'character_on_right', 'text', 'voice_file', 'background_image', 'bg_music')
+    # 【新增】對於 ForeignKey 欄位，使用 raw_id_fields 體驗更好，避免長下拉選單
+    raw_id_fields = ('speaker', 'character_on_left', 'character_on_right')
+    extra = 1
+    ordering = ('sequence',)
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ('planet', 'chapter_number', 'title')
-    list_filter = ('planet',)
+    # 【修改】加入 game_type 欄位
+    list_display = ('planet', 'chapter_number', 'title', 'game_type')
+    list_filter = ('planet', 'game_type') # 篩選器也加入 game_type
     search_fields = ['title', 'chapter_number']
-    inlines = [DialogueInline] # 將 Dialogue 的編輯功能嵌入到 Chapter 頁面
+    inlines = [DialogueInline]
 
 # --- 客製化 Question 的後台顯示 ---
 @admin.register(Question)
@@ -55,7 +60,13 @@ class QuizRecordAdmin(admin.ModelAdmin):
 # --- 客製化 Character 的後台顯示 ---
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ('name', 'intro')
+    # 【修改】顯示更完整的角色圖片資訊
+    list_display = ('name', 'character_avatar', 'character_sprite', 'intro')
+    search_fields = ['name']
+
+@admin.register(GameType)
+class GameTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'background_image')
     search_fields = ['name']
 
 # --- 其他模型使用預設方式註冊 ---
@@ -63,7 +74,14 @@ class CharacterAdmin(admin.ModelAdmin):
 admin.site.register(Planet)
 admin.site.register(UserProgress)
 admin.site.register(GrowthTrack)
-admin.site.register(FullStory)
+
+@admin.register(FullStory)
+class FullStoryAdmin(admin.ModelAdmin):
+    list_display = ('chapter', 'planet')
+    list_filter = ('planet',)
+    # 【新增】使用 filter_horizontal 讓多對多選擇介面更友善
+    filter_horizontal = ('characters',)
+
 admin.site.register(UserSetting)
 admin.site.register(UnlockedAvatar)
 admin.site.register(DailyCheckIn)

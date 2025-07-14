@@ -30,6 +30,16 @@ class Planet(models.Model):
     def __str__(self):
         return self.planet_name
     
+class GameType(models.Model):
+    game_type_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name="遊戲名稱")
+    # 為每個遊戲類型設定一個遊戲背景
+    background_image = models.CharField(max_length=255, verbose_name="遊戲背景圖", null=True, blank=True)
+    description = models.TextField(blank=True, verbose_name="遊戲描述")
+
+    def __str__(self):
+        return self.name
+      
 #玩家資訊，繼承自 Django 內建的 AbstractUser
 class User(AbstractUser):
 
@@ -110,6 +120,15 @@ class DailyCheckIn(models.Model):
 class Chapter(models.Model):
     chapter_id = models.AutoField(primary_key=True)
     planet = models.ForeignKey(Planet, on_delete=models.CASCADE)
+    
+    # 【新增】讓章節關聯到一個遊戲類型
+    # on_delete=models.PROTECT 可以防止您不小心刪除一個正在被章節使用的遊戲類型
+    game_type = models.ForeignKey(
+        GameType, 
+        on_delete=models.PROTECT,
+        verbose_name="使用的遊戲類型"
+    )
+
     chapter_number = models.CharField(max_length=10)
     title = models.CharField(max_length=100)
     background_image = models.CharField(max_length=255)
@@ -117,16 +136,27 @@ class Chapter(models.Model):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.planet.planet_name} - {self.chapter_number}"
+        return f"{self.planet.planet_name} - {self.title}"
 
 #角色
 class Character(models.Model):
     character_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    character_avatar = models.CharField(max_length=255)
+    
+    # 【保留】用於對話框、列表等地方的小頭像
+    character_avatar = models.CharField(
+        max_length=255, 
+        verbose_name="角色頭像"
+    )
+
+    # 【新增】用於視覺小說場景中的角色立繪/全身像
+    character_sprite = models.CharField(
+        max_length=255, 
+        blank=True, # 允許某些角色（如旁白）沒有立繪
+        verbose_name="角色立繪圖"
+    )
+    
     intro = models.TextField(blank=True, null=True)
-    image_left = models.CharField(max_length=255, blank=True, null=True)
-    image_right = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -159,7 +189,35 @@ class UserProgress(models.Model):
 class Dialogue(models.Model):
     dialogue_id = models.AutoField(primary_key=True)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
-    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    
+    # 【修改】將 character 改名為 speaker，語意更清晰
+    speaker = models.ForeignKey(
+        Character, 
+        on_delete=models.CASCADE, 
+        related_name='dialogues_spoken', # 加上 related_name 避免衝突
+        verbose_name="發言者"
+    )
+    
+    # 【新增】畫面左邊的角色，允許為空
+    character_on_left = models.ForeignKey(
+        Character, 
+        on_delete=models.SET_NULL, # 如果角色被刪除，這裡設為空，不影響對話保留
+        null=True, 
+        blank=True, 
+        related_name='dialogues_on_left',
+        verbose_name="左側角色"
+    )
+
+    # 【新增】畫面右邊的角色，允許為空
+    character_on_right = models.ForeignKey(
+        Character, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='dialogues_on_right',
+        verbose_name="右側角色"
+    )
+
     sequence = models.IntegerField()
     text = models.TextField()
     voice_file = models.CharField(max_length=255, null=True, blank=True)
@@ -167,23 +225,29 @@ class Dialogue(models.Model):
     bg_music = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.chapter} - {self.character.name} ({self.sequence})"
+        # 更新 __str__ 方法以反映新的欄位名稱
+        return f"{self.chapter} - {self.speaker.name} ({self.sequence})"
 
 #問題
 class Question(models.Model):
     question_id = models.AutoField(primary_key=True)
-    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+
+    chapter = models.ForeignKey(
+        Chapter, 
+        on_delete=models.CASCADE, 
+        related_name="questions"
+    )
+    
     difficulty = models.CharField(max_length=10, choices=DifficultyLevel.choices)
     question_text = models.TextField()
     options = models.JSONField()
     correct_answer = models.CharField(max_length=10)
     enemy_image = models.CharField(max_length=255, null=True, blank=True)
     player_image = models.CharField(max_length=255, null=True, blank=True)
-    background = models.CharField(max_length=255)
+    
 
     def __str__(self):
-        return f"{self.chapter} ({self.difficulty})"
-
+        return f"{self.chapter.title} - Question ({self.difficulty})"
 #測驗記錄
 class QuizRecord(models.Model):
     record_id = models.AutoField(primary_key=True)
@@ -228,7 +292,13 @@ class FullStory(models.Model):
     story_id = models.AutoField(primary_key=True)
     planet = models.ForeignKey(Planet, on_delete=models.CASCADE)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
-    character = models.CharField(max_length=100)
+    
+    # 【修改】使用 ManyToManyField 來關聯多個角色
+    characters = models.ManyToManyField(
+        Character,
+        verbose_name="登場角色"
+    )
+    
     introduction = models.TextField(blank=True, default='') 
     full_text = models.TextField()
     is_unlocked = models.BooleanField(default=False)
