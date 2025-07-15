@@ -266,11 +266,12 @@ def use_diamond_view(request):
 @login_required
 def full_story_list_view(request):
     """星球2: 完整故事列表"""
-    # 假設玩家完成(2星以上)即可解鎖完整故事
     completed_chapters_ids = QuizRecord.objects.filter(user=request.user, stars_earned__gte=2).values_list('chapter_id', flat=True)
     FullStory.objects.filter(chapter_id__in=completed_chapters_ids).update(is_unlocked=True)
     
-    stories = FullStory.objects.all().order_by('planet', 'chapter__chapter_number')
+    # 【修改】使用 prefetch_related 來優化效能
+    stories = FullStory.objects.all().prefetch_related('characters').order_by('planet', 'chapter__chapter_number')
+    
     return render(request, 'features/full_story_list.html', {'stories': stories})
 
 @login_required

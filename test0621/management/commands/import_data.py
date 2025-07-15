@@ -1,17 +1,20 @@
+# your_app/management/commands/import_data.py
+
 import json
 import os
 from django.core.management.base import BaseCommand
-from test0621 import Planet, Chapter, Character, Dialogue, Question
+# 引入所有需要的模型
+from test0621.models import (
+    Planet, GameType, Character, Chapter, Dialogue, Question, FullStory
+)
 
 class Command(BaseCommand):
-    help = 'Imports story data from a specified JSON file into the database.'
+    help = 'Imports game data from a specified JSON file that matches the final format.'
 
     def add_arguments(self, parser):
-        parser.add_argument('json_file', type=str, help='The path to the JSON file to import.')
+        parser.add_argument('json_file', type=str, help='The path to the JSON file.')
         parser.add_argument(
-            '--clear',
-            action='store_true',
-            help='Clear existing data before importing.',
+            '--clear', action='store_true', help='Clear existing game content data before importing.'
         )
 
     def handle(self, *args, **options):
@@ -22,103 +25,111 @@ class Command(BaseCommand):
             return
 
         if options['clear']:
-            self.stdout.write(self.style.WARNING('Clearing existing data...'))
+            self.stdout.write(self.style.WARNING('Clearing existing game content data...'))
+            # 刪除順序：從子模型到父模型
             Question.objects.all().delete()
             Dialogue.objects.all().delete()
-            Character.objects.all().delete()
+            FullStory.objects.all().delete()
             Chapter.objects.all().delete()
+            Character.objects.all().delete()
+            GameType.objects.all().delete()
             Planet.objects.all().delete()
-            self.stdout.write(self.style.SUCCESS('Data cleared.'))
+            self.stdout.write(self.style.SUCCESS('Game content data cleared.'))
 
         with open(json_file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
         self.stdout.write('Starting data import...')
 
-        # 1. 建立星球 (Planet)
-        # 【已優化】優先使用 'planet_name' 欄位，如果沒有則使用 'theme'
-        planet_name = data.get('planet_name') or data.get('theme', '預設星球')
-        planet, created = Planet.objects.get_or_create(
-            planet_name=planet_name
-        )
-        if created:
-            self.stdout.write(self.style.SUCCESS(f'Planet "{planet.planet_name}" created.'))
+        # 1. 建立星球
+        planet, _ = Planet.objects.get_or_create(planet_name=data['planet_name'])
+        self.stdout.write(f'Planet "{planet.planet_name}" processed.')
 
-        # 2. 預處理並建立所有角色 (Character)
-        characters_data = {}
-        for story in data.get('stories', []):
-            for dialogue in story.get('dialogues', []):
-                char_name = dialogue.get('character')
-                if char_name and char_name not in characters_data:
-                    characters_data[char_name] = {
-                        'name': char_name,
-                        'intro': dialogue.get('intro'),
-                        'character_avatar': dialogue.get('avatar', ''),
-                        'image_left': dialogue.get('image1'),
-                        'image_right': dialogue.get('image2'),
-                    }
-        
-        character_objects = {}
-        for name, char_data in characters_data.items():
-            character, created = Character.objects.get_or_create(
-                name=name,
-                defaults=char_data
-            )
-            character_objects[name] = character
-            if created:
-                self.stdout.write(f'  Character "{name}" created.')
-
-        # 3. 遍歷故事並建立章節、對話和問題
-        for story in data.get('stories', []):
-            chapter, created = Chapter.objects.get_or_create(
-                planet=planet,
-                chapter_number=story.get('chapter'),
+        # 2. 建立所有遊戲類型
+        game_type_objects = {}
+        for gt_data in data.get('game_types', []):
+            gt, created = GameType.objects.get_or_create(
+                name=gt_data['name'], 
                 defaults={
-                    'title': story.get('title'),
-                    'description': story.get('description'),
-                    'bg_music': story.get('music'),
-                    'background_image': 'chapters/default_bg.jpg'
+                    'description': gt_data.get('description'),
+                    'background_image': gt_data.get('background_img') # JSON 'background_img' -> model 'background_image'
                 }
             )
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'Chapter "{chapter.title}" ({chapter.chapter_number}) created.'))
+            game_type_objects[gt.name] = gt
+            if created: self.stdout.write(f'  GameType "{gt.name}" created.')
+
+        # 3. 建立所有角色
+        character_objects = {}
+        for char_data in data.get('characters', []):
+            char, created = Character.objects.get_or_create(
+                name=char_data['name'], 
+                defaults={
+                    'intro': char_data.get('intro'),
+                    'character_avatar': char_data.get('character_avatar'),
+                    'character_sprite': char_data.get('character_img') # JSON 'character_img' -> model 'character_sprite'
+                }
+            )
+            character_objects[char.name] = char
+            if created: self.stdout.write(f'  Character "{char.name}" created.')
+        character_objects[None] = None # 處理對話中角色為 null 的情況
+
+        # 4. 遍歷故事，建立章節、對話、問題、完整故事
+        for story_data in data.get('stories', []):
+            game_type_name = story_data.get('game_type')
+            game_type_obj = game_type_objects.get(game_type_name)
+            if not game_type_obj:
+                self.stdout.write(self.style.ERROR(f"GameType '{game_type_name}' not found. Skipping chapter '{story_data['title']}'."))
+                continue
+            
+            # 建立章節
+            chapter, created = Chapter.objects.get_or_create(
+                planet=planet,
+                chapter_number=story_data['chapter_num'], # JSON 'chapter_num' -> model 'chapter_number'
+                defaults={
+                    'title': story_data['title'],
+                    'game_type': game_type_obj,
+                    'description': story_data.get('description'),
+                    'background_image': story_data.get('novel_bg'), # JSON 'novel_bg' -> model 'background_image'
+                    'bg_music': story_data.get('novel_music'), # JSON 'novel_music' -> model 'bg_music'
+                }
+            )
+            if created: self.stdout.write(f'  Chapter "{chapter.title}" created.')
 
             # 建立對話
-            for dialogue_data in story.get('dialogues', []):
-                char_name = dialogue_data.get('character')
-                if not char_name or char_name not in character_objects:
-                    continue
-                
-                character = character_objects.get(char_name)
+            for dialogue_data in story_data.get('dialogues', []):
                 Dialogue.objects.create(
                     chapter=chapter,
-                    character=character,
-                    sequence=dialogue_data.get('sequence'),
-                    text=dialogue_data.get('text'),
-                    voice_file=dialogue_data.get('voice'),
-                    background_image=dialogue_data.get('background')
+                    sequence=dialogue_data['sequence'],
+                    speaker=character_objects[dialogue_data['speaker']],
+                    character_on_left=character_objects[dialogue_data.get('character_left')], # JSON 'character_left' -> model 'character_on_left'
+                    character_on_right=character_objects[dialogue_data.get('character_right')], # JSON 'character_right' -> model 'character_on_right'
+                    text=dialogue_data['text'],
+                    voice_file=dialogue_data.get('voice'), # JSON 'voice' -> model 'voice_file'
+                    background_image=dialogue_data.get('bg_img'), # JSON 'bg_img' -> model 'background_image'
+                    bg_music=dialogue_data.get('bg_music'),
                 )
-            self.stdout.write(f'  - Imported {len(story.get("dialogues", []))} dialogues for chapter "{chapter.title}".')
-
-            # 建立問題
-            quiz_data = story.get('quiz', {})
-            player_info = story.get('player', {})
-            enemy_info = story.get('enemy', {})
-            question_count = 0
             
-            for difficulty, questions in quiz_data.items():
-                for q_data in questions:
-                    Question.objects.create(
-                        chapter=chapter,
-                        difficulty=difficulty,
-                        question_text=q_data.get('question'),
-                        options=q_data.get('options'),
-                        correct_answer=q_data.get('correct_answer'), # JSON 格式修正後，此處為 'answer'
-                        player_image=player_info.get('image'),
-                        enemy_image=enemy_info.get('image'),
-                        background=enemy_info.get('background')
-                    )
-                    question_count += 1
-            self.stdout.write(f'  - Imported {question_count} questions for chapter "{chapter.title}".')
+            # 建立問題
+            for question_data in story_data.get('questions', []):
+                Question.objects.create(
+                    chapter=chapter,
+                    difficulty=question_data['difficulty'],
+                    question_text=question_data['question_text'],
+                    options=question_data['options'],
+                    correct_answer=question_data['answer'], # JSON 'answer' -> model 'correct_answer'
+                    enemy_image=question_data.get('enemy_img'), # JSON 'enemy_img' -> model 'enemy_image'
+                    player_image=question_data.get('player_img'), # JSON 'player_img' -> model 'player_image'
+                )
+            
+            # 建立完整故事
+            full_story_data = story_data.get('full_story')
+            if full_story_data:
+                fs, created = FullStory.objects.get_or_create(chapter=chapter, defaults={'planet': planet})
+                fs.introduction = full_story_data.get('introduction', '')
+                fs.full_text = full_story_data.get('full_text', '')
+                character_names = full_story_data.get('character_names', [])
+                characters_to_add = [character_objects[name] for name in character_names if name in character_objects]
+                fs.characters.set(characters_to_add)
+                fs.save()
 
         self.stdout.write(self.style.SUCCESS('Data import finished successfully!'))

@@ -1,1145 +1,166 @@
 {
-  "Planet": "1",
-  "UID": "planet1",
-  "planet_name": "性別特質",
+  "planet_name": "性別特質星球",
+  "game_types": [
+    {
+      "name": "標準選擇題",
+      "description": "經典的單選問答遊戲。",
+      "background_img": "backgrounds/quiz_default_bg.jpg"
+    },
+    {
+      "name": "情境挑戰題",
+      "description": "根據情境選擇最合適的應對方式。",
+      "background_img": "backgrounds/scenario_challenge_bg.jpg"
+    }
+  ],
+  "characters": [
+    {
+      "name": "旁白",
+      "intro": "故事的敘述者，引導劇情的發展。",
+      "character_avatar": "avatars/narrator.png",
+      "character_img": ""
+    },
+    {
+      "name": "小欣",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "sprites/hsin_sprite.png"
+    },
+    {
+      "name": "小剛",
+      "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
+      "character_avatar": "avatars/kang_avatar.png",
+      "character_img": "sprites/kang_sprite.png"
+    }
+  ],
   "stories": [
     {
+      "chapter_num": "1-1",
       "title": "他是她",
-      "chapter": "1-1",
-      "music": "music.mp3",
-      "description": "本章節描述小欣因穿著被質疑，以及老師如何引導全班討論性別刻板印象。",
+      "game_type": "標準選擇題",
+      "description": "本章節描述小欣因穿著被質疑的故事。",
+      "novel_bg": "backgrounds/chapter_1_1_bg.jpg",
+      "novel_music": "music/chapter_1_1.mp3",
       "dialogues": [
         {
           "sequence": 1,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "小欣平時喜歡穿運動服，看起來和太陽班的其他女生不太一樣。"
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小欣平時喜歡穿運動服...",
+          "bg_img": "scenes/playground.jpg"
         },
         {
           "sequence": 2,
-          "character": "小剛",
-          "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_001.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "小欣，妳怎麼穿得像個男生一樣？是不是穿到你弟弟的衣服了？"
-        },
-        {
-          "sequence": 3,
-          "character": "小欣",
-          "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_001.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "沒有啊！因為我很喜歡跑步，所以才穿運動服，這樣也比較方便，而且穿運動服很舒服！"
-        },        
-        {
-          "sequence": 4,
-          "character": "小剛",
-          "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_002.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "可是女生就應該穿裙子啊！妳這樣看起來很奇怪，大家都覺得妳不像女生。"
-        },        
-        {
-          "sequence": 5,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "旁邊的小晴皺起眉頭，但沒有說話，只是靜靜地看著這一切。"
-        },
-        {
-          "sequence": 6,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。"
-        },
-        {
-          "sequence": 7,
-          "character": "貓頭鷹老師",
-          "intro": "非常優秀的一位老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "貓頭鷹老師_001.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "同學們，我今天想問大家一個問題：什麼是女生應該做的，什麼是男生應該做的？"
-        },
-        {
-          "sequence": 8,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "小剛舉手。"
-        },
-        {
-          "sequence": 9,
-          "character": "小剛",
-          "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "小剛_003.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。"
-        },
-        {
-          "sequence": 10,
-          "character": "貓頭鷹老師",
-          "intro": "非常優秀的一位老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "貓頭鷹老師_002.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "可是，有沒有人想過，這些規定是誰訂的？衣服應該是用來保護我們的身體或是裝飾打扮的，不是嗎？所以每個人都可以選擇自己喜歡的穿著，不應該性別刻板印象哦！"
-        },
-        {
-          "sequence": 11,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "小晴舉手。"
-        },
-        {
-          "sequence": 12,
-          "character": "小晴",
-          "intro": "勇於發聲的優秀學生",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小晴.png",
-          "voice": "小晴_001.mp3",
-          "avatar": "小晴2.png",
-          "background": "playground.jpg",
-          "text": "老師，我也覺得小欣穿運動服沒什麼不對！"
-        },
-        {
-          "sequence": 13,
-          "character": "貓頭鷹老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小晴.png",
-          "voice": "貓頭鷹老師_003.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "很好，小晴說得對。小欣穿運動服是因為她喜歡，而且跑步也比較方便，這是她的選擇。而我們應該尊重每個人的選擇，對不對？"
-        },
-        {
-          "sequence": 14,
-          "character": "旁白",
-          "intro": "故事的敘述者，引導劇情的發展。",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "幾天後的體育課，小剛發現小欣跑步比班上的所有人都快。"
-        },
-        {
-          "sequence": 15,
-          "character": "小剛",
-          "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_004.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "哇，小欣，妳真的跑得好快！怎麼做到的？"
-        },
-        {
-          "sequence": 16,
-          "character": "小欣",
-          "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_002.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "因為我很喜歡跑步，所以每天放學後都會留下來練習。"
-        },
-        {
-          "sequence": 17,
-          "character": "小剛",
-          "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_005.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "原來如此！對不起，我之前嘲笑妳穿運動服。其實我覺得妳很酷！"
-        },
-        {
-          "sequence": 18,
-          "character": "小欣",
-          "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_003.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "沒關係，希望大家知道，衣服或外貌不能定義一個人。我只是在做自己而已。"
-        }],
-      "player": 
-        {
-          "name": "小欣",
-          "image": "小欣.png",
-          "health": 5
-        },
-      "enemy": 
-        {
-          "name": "國王",
-          "image": "國王.png",
-          "background": "playground.jpg"
-        },
-      "quiz": {
-        "easy": [
-          {
-            "question": "小欣喜歡穿什麼衣服？",
-            "options": {"A":"洋裝", "B":"運動服", "C":"制服"},
-            "correct_answer": "B"
-          },
-          {
-            "question": "小剛為什麼嘲笑小欣？",
-            "options": {"A":"因為小欣成績不好", "B":"因為小欣穿運動服", "C":"因為小欣不愛說話", "D":"因為小欣忘了帶書包"},
-            "correct_answer": "B"
-          },
-          {
-            "question": "小剛覺得女生應該穿什麼？",
-            "options": {"A":"短褲", "B":"運動服", "C":"裙子"},
-            "correct_answer": "C"
-          },
-          {
-            "question": "誰沒有嘲笑小欣，卻在旁邊觀察一切？",
-            "options": {"A":"小剛", "B":"小晴", "C":"老師"},
-            "correct_answer": "B"
-          },
-          {
-            "question": "老師上健康課時，請同學們思考什麼問題？",
-            "options": {"A":"什麼是正確的穿著？", "B":"什麼是女生應該做的，什麼是男生應該做的？", "C":"因為小欣不愛為什麼要穿制服？", "D":"運動服的優點有哪些？"},
-            "correct_answer": "B"
-          },
-          {
-            "question": "小晴在課堂上說了什麼？",
-            "options": ["「我覺得小欣穿運動服沒什麼不對！」", "「小欣應該穿裙子。」", "「男生才會穿運動服。」", "「我不喜歡運動服。」"],
-            "answer": "「我覺得小欣穿運動服沒什麼不對！」"
-          },
-          {
-            "question": "為什麼小欣選擇穿運動服？",
-            "options": ["因為她沒有別的衣服", "因為她喜歡跑步", "因為她不喜歡裙子", "因為媽媽要她這樣穿"],
-            "answer": "因為她喜歡跑步"
-          },
-          {
-            "question": "小剛後來發現小欣有什麼特別的能力？",
-            "options": ["畫畫很厲害", "跑步很快", "唱歌很好聽"],
-            "answer": "跑步很快"
-          },
-          {
-            "question": "小剛最後對小欣說了什麼？",
-            "options": ["「原來運動服很舒服！」", "「對不起，我之前嘲笑妳。」", "「妳還是應該穿裙子。」", "「妳不應該跑步這麼快。」"],
-            "answer": "「對不起，我之前嘲笑妳。」"
-          },
-          {
-            "question": "故事主要想傳達的是什麼？",
-            "options": ["只有男生可以穿運動服", "每個人都可以選擇自己喜歡的穿著", "女生應該穿裙子", "男生不應該道歉"],
-            "answer": "每個人都可以選擇自己喜歡的穿著"
-          }
-        ],
-        "medium": [
-          {
-            "question": "故事中，小剛的行為屬於哪一種現象？",
-            "options": ["友善互動", "性別刻板印象", "欺騙行為"],
-            "answer": "性別刻板印象"
-          },
-          {
-            "question": "小剛的想法改變的關鍵是什麼？",
-            "options": ["小欣跑步比他快", "小晴勸他", "老師罰他反省", "小欣換回裙子"],
-            "answer": "小欣跑步比他快"
-          },
-          {
-            "question": "老師在課堂上問了一個重要問題，目的是什麼？",
-            "options": ["讓小剛知道自己的錯誤", "讓同學們討論性別刻板印象", "讓小欣覺得自己錯了"],
-            "answer": "讓同學們討論性別刻板印象"
-          },
-          {
-            "question": "小欣穿運動服代表什麼？",
-            "options": ["她想要裝成男生", "她不喜歡裙子", "她有自己的選擇權"],
-            "answer": "她有自己的選擇權"
-          },
-          {
-            "question": "小剛最後學到了什麼？",
-            "options": ["不應該隨便嘲笑別人", "運動服比裙子好", "女生不能跑步", "只有男生可以穿運動服"],
-            "answer": "不應該隨便嘲笑別人"
-          },
-          {
-            "question": "小晴在故事中代表什麼角色？",
-            "options": ["加害者", "受害者", "旁觀者"],
-            "answer": "旁觀者"
-          },
-          {
-            "question": "小欣如何回應小剛的嘲笑？",
-            "options": ["她反擊並嘲笑小剛", "她難過地跑開", "她微笑並解釋自己喜歡運動服", "她換回裙子"],
-            "answer": "她微笑並解釋自己喜歡運動服"
-          },
-          {
-            "question": "故事中，小剛改變態度的象徵是什麼？",
-            "options": ["他主動道歉", "他幫小欣換衣服", "他不再說話", "他開始穿裙子"],
-            "answer": "他主動道歉"
-          },
-          {
-            "question": "在接力賽中，大家學到了什麼？",
-            "options": ["只有穿運動服才能跑快", "每個人都有自己的特點，合作才能成功", "只有男生才能參加比賽", "運動服是最重要的比賽條件"],
-            "answer": "每個人都有自己的特點，合作才能成功"
-          },
-          {
-            "question": "這個故事最主要的核心價值是什麼？",
-            "options": ["服裝代表性別", "尊重與包容", "運動能力最重要", "競賽是最重要的事情"],
-            "answer": "尊重與包容"
-          }
-	      ],
-        "hard": [
-          {
-            "question": "「性別刻板印象」最好的定義是什麼？",
-            "options": ["只要是女生就該穿裙子，男生該穿褲子", "人們對某個性別有固定的想法，不允許改變", "每個人都該有一樣的興趣"],
-            "answer": "人們對某個性別有固定的想法，不允許改變"
-          },
-          {
-            "question": "什麼情況算是打破性別刻板印象？",
-            "options": ["男生學做料理", "女生只能當護士", "男生不應該玩娃娃", "女生不應該剪短髮"],
-            "answer": "男生學做料理"
-          },
-          {
-            "question": "為什麼小剛一開始會有刻板印象？",
-            "options": ["因為社會上長期有這樣的期待", "因為小欣真的穿錯衣服了", "因為男生應該都這樣想"],
-            "answer": "因為社會上長期有這樣的期待"
-          },
-          {
-            "question": "「外表不能定義一個人」的意思是什麼？",
-            "options": ["每個人都應該穿一樣的衣服", "衣著無法決定一個人的價值與能力", "長得好看最重要", "男生和女生應該穿一樣的衣服"],
-            "answer": "衣著無法決定一個人的價值與能力"
-          },
-          {
-            "question": "小欣的行為展現了哪種價值？",
-            "options": ["勇敢與自信", "盲目服從", "害怕別人意見"],
-            "answer": "勇敢與自信"
-          },
-          {
-            "question": "在健康課上，老師希望學生學到什麼？",
-            "options": ["男生和女生應該有明確的區別", "每個人都可以自由選擇自己的喜好", "運動服比裙子好", "女生應該穿裙子"],
-            "answer": "每個人都可以自由選擇自己的喜好"
-          },
-          {
-            "question": "小剛後來的轉變代表什麼？",
-            "options": ["他開始理解並尊重多樣性", "他變得更會跑步", "他開始學習畫畫", "他不再穿褲子"],
-            "answer": "他開始理解並尊重多樣性"
-          },
-          {
-            "question": "這個故事對我們的啟發是？",
-            "options": ["我們應該勇敢做自己", "衣服可以改變一個人", "只有運動好的人才值得尊重", "服從別人的期待最重要"],
-            "answer": "我們應該勇敢做自己"
-          },
-          {
-            "question": "小晴的角色代表？",
-            "options": ["旁觀但願意支持的人", "主要的對立者", "只有男生才能參加比賽", "完全沒有意見的人", "問題的製造者"],
-            "answer": "旁觀但願意支持的人"
-          },
-          {
-            "question": "「世界變得更包容」的意思是？",
-            "options": ["接受並尊重不同的人", "只要別人喜歡，就順從", "改變別人的選擇", "讓大家都一樣"],
-            "answer": "接受並尊重不同的人"
-          }
-	]
-      }
-    },
-    {
-      "title": "彩虹風箏",
-      "chapter": "1-2",
-      "background": "classroom.jpg",
-      "music": "music.mp3",
-      "dialogues": [
-        {
-          "sequence": 1,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "小晴和小宇是太陽班的同學，也是好朋友，他們放學後總是一起到公園放風箏。"
-        },
-        {
-          "sequence": 2,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "一天，有個新同學小安來到了太陽班。小安和大家不太一樣，因為他穿著粉紅色的圍裙，手裡抱著一個彩色的風箏，所以他一走進教室時便吸引了大家的目光。當他站到講台前自我介紹時，教室裡的氣氛瞬間變得非常奇怪。"
-        },
-        {
-          "sequence": 3,
-          "character": "路人甲",
-          "image1": "路人甲.png",
-          "image2": "路人乙.png",
-          "voice": "路人甲_001.mp3",
-          "avatar": "路人甲2.png",
-          "background": "classroom.jpg",
-          "text": "他穿的是圍裙嗎？還有彩虹風箏？"
-        },
-        {
-          "sequence": 4,
-          "character": "路人乙",
-          "image1": "路人甲.png",
-          "image2": "路人乙.png",
-          "voice": "路人乙_001.mp3",
-          "avatar": "路人乙2.png",
-          "background": "classroom.jpg",
-          "text": "哈哈哈，這是男生會喜歡的東西嗎？"
-        },        
-        {
-          "sequence": 5,
-          "character": "路人丙",
-          "image1": "路人甲.png",
-          "image2": "路人丙.png",
-          "voice": "路人丙_001.mp3",
-          "avatar": "路人丙2.png",
-          "background": "classroom.jpg",
-          "text": "看起來好奇怪哦，他不覺得丟臉嗎？"
-        },        
-        {
-          "sequence": 6,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "一陣竊竊私語伴隨著笑聲在教室中流竄。小安的臉瞬間漲得通紅，他低著頭，手緊緊抓著圍裙的下擺，努力裝作沒聽見。"
-        },
-        {
-          "sequence": 7,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "小晴和小宇也聽到了這些話。"
-        },
-        {
-          "sequence": 8,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "小晴皺著眉，輕聲對小宇說。"
-        },
-        {
-          "sequence": 9,
-          "character": "小晴",
-          "image1": "小晴.png",
-          "image2": "小宇.png",
-          "voice": "小晴_002.mp3",
-          "avatar": "小晴2.png",
-          "background": "classroom.jpg",
-          "text": "大家怎麼這麼不友善？"
-        },
-        {
-          "sequence": 10,
-          "character": "小宇",
-          "image1": "小晴.png",
-          "image2": "小宇.png",
-          "voice": "小宇_001.mp3",
-          "avatar": "小宇2.png",
-          "background": "classroom.jpg",
-          "text": "可是……說實話，我也覺得有點奇怪，男生為什麼要穿圍裙？"
-        },
-        {
-          "sequence": 11,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "小晴沒有回答，她只是靜靜地看著小安站在講台上，背影顯得有些孤單。"
-        },
-        {
-          "sequence": 12,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "之後，因為越來越多的批評，小安成了班上的話題人物，但並不是好的一面。"
-        },
-        {
-          "sequence": 13,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "當他穿著圍裙、拿著風箏走進教室時，總有人低聲嘲笑他"
-        },
-        {
-          "sequence": 14,
-          "character": "路人乙",
-          "image1": "路人乙.png",
-          "image2": "路人丙.png",
-          "voice": "路人乙_002.mp3",
-          "avatar": "路人乙2.png",
-          "background": "classroom.jpg",
-          "text": "彩虹男孩又來了。"
-        },
-        {
-          "sequence": 15,
-          "character": "路人丙",
-          "image1": "路人乙.png",
-          "image2": "路人丙.png",
-          "voice": "路人丙_002.mp3",
-          "avatar": "路人丙2.png",
-          "background": "classroom.jpg",
-          "text": "你的圍裙真好看，下次可以借我做家務嗎？"
-        },
-        {
-          "sequence": 16,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "甚至有人故意在他經過時故意撞他，發出誇張的笑聲"
-        },
-        {
-          "sequence": 17,
-          "character": "路人甲",
-          "image1": "路人甲.png",
-          "image2": "路人乙.png",
-          "voice": "路人甲_002.mp3",
-          "avatar": "路人甲2.png",
-          "background": "classroom.jpg",
-          "text": "喂，小心你的風箏不要掉了！"
-        },
-        {
-          "sequence": 18,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "這種情況持續了好幾天，連小晴和小宇都開始感到不安"
-        },
-        {
-          "sequence": 19,
-          "character": "小晴",
-          "image1": "小晴.png",
-          "image2": "小宇.png",
-          "voice": "小晴_002.mp3",
-          "avatar": "小晴2.png",
-          "background": "classroom.jpg",
-          "text": "我們應該幫幫他吧，這樣下去，他一定很難受。"
-        },
-        {
-          "sequence": 20,
-          "character": "小宇",
-          "image1": "小晴.png",
-          "image2": "小宇.png",
-          "voice": "小宇_005.mp3",
-          "avatar": "小宇2.png",
-          "background": "classroom.jpg",
-          "text": "可是，我們要是幫了他，會不會也被別人嘲笑？"
-        },
-        {
-          "sequence": 21,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "兩人陷入了沉默，但他們心裡都知道，大家的行為讓班上的氣氛變得非常差。"
-        },
-        {
-          "sequence": 22,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "classroom.jpg",
-          "text": "小安在心裡默默地問道"
-        },
-        {
-          "sequence": 23,
-          "character": "小安",
-          "image1": "小安.png",
-          "image2": "小宇.png",
-          "voice": "小安_001.mp3",
-          "avatar": "小安2.png",
-          "background": "classroom.jpg",
-          "text": "難道男生就不能喜歡粉紅色的圍裙和彩虹風箏嗎？"
+          "speaker": "小剛",
+          "character_left": "小欣",
+          "character_right": "小剛",
+          "text": "小欣，妳怎麼穿得像個男生一樣？",
+          "voice": "voices/kang_001.mp3",
+          "bg_img": "scenes/playground.jpg",
+          "bg_music": "voices/kang_001.mp3"
         }
       ],
-      "player": 
+      "questions": [
+
         {
-          "name": "小欣",
-          "image": "小欣.png",
-          "health": 5
+            "difficulty": "easy",
+            "question_text": "小欣喜歡穿什麼衣服？",
+            "options": {"A":"洋裝", "B":"運動服", "C":"制服"},
+            "answer": "B",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
         },
-        "enemy": 
         {
-          "name": "國王",
-          "image": "國王.png",
-          "background": "playground.jpg"
+            "difficulty": "easy",
+            "question_text": "小剛一開始覺得女生應該穿什麼？",
+            "options": {"A":"短褲", "B":"運動服", "C":"裙子"},
+            "answer": "C",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
         },
-      "quiz": {
-        "easy": [
-          {
-            "question": "小安穿著什麼樣的圍裙來到學校？",
-            "options": ["粉色圍裙", "白色圍裙", "紅色圍裙"],
-            "answer": "白色圍裙"
-          },
-          {
-            "question": "小安帶來了什麼顏色的風箏？",
-            "options": ["藍色", "彩色", "綠色", "白色"],
-            "answer": "彩色"
-          },
-          {
-            "question": "小晴和小宇是什麼關係？",
-            "options": ["兄妹", "姊弟", "好朋友"],
-            "answer": "好朋友"
-          },
-          {
-            "question": "小宇覺得小安穿圍裙如何？",
-            "options": ["他覺得小安很奇怪", "他覺得男生不應該穿圍裙", "他覺得小安很可愛", "他不在乎別人穿什麼"],
-            "answer": "他覺得男生不應該穿圍裙"
-          },
-          {
-            "question": "老師上健康課時，請同學們思考什麼問題？",
-            "options": ["什麼是正確的穿著？", "什麼是女生應該做的，什麼是男生應該做的？", "為什麼要穿制服？", "運動服的優點有哪些？"],
-            "answer": "什麼是女生應該做的，什麼是男生應該做的？"
-          },
-          {
-            "question": "小晴在課堂上說了什麼？",
-            "options": ["「我覺得小欣穿運動服沒什麼不對！」", "「小欣應該穿裙子。」", "「男生才會穿運動服。」", "「我不喜歡運動服。」"],
-            "answer": "「我覺得小欣穿運動服沒什麼不對！」"
-          },
-          {
-            "question": "為什麼小欣選擇穿運動服？",
-            "options": ["因為她沒有別的衣服", "因為她喜歡跑步", "因為她不喜歡裙子", "因為媽媽要她這樣穿"],
-            "answer": "因為她喜歡跑步"
-          },
-          {
-            "question": "小剛後來發現小欣有什麼特別的能力？",
-            "options": ["畫畫很厲害", "跑步很快", "唱歌很好聽"],
-            "answer": "跑步很快"
-          },
-          {
-            "question": "小剛最後對小欣說了什麼？",
-            "options": ["「原來運動服很舒服！」", "「對不起，我之前嘲笑妳。」", "「妳還是應該穿裙子。」", "「妳不應該跑步這麼快。」"],
-            "answer": "「對不起，我之前嘲笑妳。」"
-          },
-          {
-            "question": "故事主要想傳達的是什麼？",
-            "options": ["只有男生可以穿運動服", "每個人都可以選擇自己喜歡的穿著", "女生應該穿裙子", "男生不應該道歉"],
-            "answer": "每個人都可以選擇自己喜歡的穿著"
-          }
-	],
-        "medium": [
-          {
-            "question": "小欣喜歡穿什麼衣服？",
-            "options": ["洋裝", "運動服", "制服"],
-            "answer": "運動服"
-          },
-          {
-            "question": "小剛為什麼嘲笑小欣？",
-            "options": ["因為小欣成績不好", "因為小欣穿運動服", "因為小欣不愛說話", "因為小欣忘了帶書包"],
-            "answer": "因為小欣穿運動服"
-          },
-          {
-            "question": "小剛覺得女生應該穿什麼？",
-            "options": ["短褲", "運動服", "裙子"],
-            "answer": "裙子"
-          },
-          {
-            "question": "誰沒有嘲笑小欣，卻在旁邊觀察一切？",
-            "options": ["小剛", "小晴", "老師"],
-            "answer": "小晴"
-          },
-          {
-            "question": "老師上健康課時，請同學們思考什麼問題？",
-            "options": ["什麼是正確的穿著？", "什麼是女生應該做的，什麼是男生應該做的？", "為什麼要穿制服？", "運動服的優點有哪些？"],
-            "answer": "什麼是女生應該做的，什麼是男生應該做的？"
-          },
-          {
-            "question": "小晴在課堂上說了什麼？",
-            "options": ["「我覺得小欣穿運動服沒什麼不對！」", "「小欣應該穿裙子。」", "「男生才會穿運動服。」", "「我不喜歡運動服。」"],
-            "answer": "「我覺得小欣穿運動服沒什麼不對！」"
-          },
-          {
-            "question": "為什麼小欣選擇穿運動服？",
-            "options": ["因為她沒有別的衣服", "因為她喜歡跑步", "因為她不喜歡裙子", "因為媽媽要她這樣穿"],
-            "answer": "因為她喜歡跑步"
-          },
-          {
-            "question": "小剛後來發現小欣有什麼特別的能力？",
-            "options": ["畫畫很厲害", "跑步很快", "唱歌很好聽"],
-            "answer": "跑步很快"
-          },
-          {
-            "question": "小剛最後對小欣說了什麼？",
-            "options": ["「原來運動服很舒服！」", "「對不起，我之前嘲笑妳。」", "「妳還是應該穿裙子。」", "「妳不應該跑步這麼快。」"],
-            "answer": "「對不起，我之前嘲笑妳。」"
-          },
-          {
-            "question": "故事主要想傳達的是什麼？",
-            "options": ["只有男生可以穿運動服", "每個人都可以選擇自己喜歡的穿著", "女生應該穿裙子", "男生不應該道歉"],
-            "answer": "每個人都可以選擇自己喜歡的穿著"
-          }
-	],
-        "hard": [
-          {
-            "question": "小欣喜歡穿什麼衣服？",
-            "options": ["洋裝", "運動服", "制服"],
-            "answer": "運動服"
-          },
-          {
-            "question": "小剛為什麼嘲笑小欣？",
-            "options": ["因為小欣成績不好", "因為小欣穿運動服", "因為小欣不愛說話", "因為小欣忘了帶書包"],
-            "answer": "因為小欣穿運動服"
-          },
-          {
-            "question": "小剛覺得女生應該穿什麼？",
-            "options": ["短褲", "運動服", "裙子"],
-            "answer": "裙子"
-          },
-          {
-            "question": "誰沒有嘲笑小欣，卻在旁邊觀察一切？",
-            "options": ["小剛", "小晴", "老師"],
-            "answer": "小晴"
-          },
-          {
-            "question": "老師上健康課時，請同學們思考什麼問題？",
-            "options": ["什麼是正確的穿著？", "什麼是女生應該做的，什麼是男生應該做的？", "為什麼要穿制服？", "運動服的優點有哪些？"],
-            "answer": "什麼是女生應該做的，什麼是男生應該做的？"
-          },
-          {
-            "question": "小晴在課堂上說了什麼？",
-            "options": ["「我覺得小欣穿運動服沒什麼不對！」", "「小欣應該穿裙子。」", "「男生才會穿運動服。」", "「我不喜歡運動服。」"],
-            "answer": "「我覺得小欣穿運動服沒什麼不對！」"
-          },
-          {
-            "question": "為什麼小欣選擇穿運動服？",
-            "options": ["因為她沒有別的衣服", "因為她喜歡跑步", "因為她不喜歡裙子", "因為媽媽要她這樣穿"],
-            "answer": "因為她喜歡跑步"
-          },
-          {
-            "question": "小剛後來發現小欣有什麼特別的能力？",
-            "options": ["畫畫很厲害", "跑步很快", "唱歌很好聽"],
-            "answer": "跑步很快"
-          },
-          {
-            "question": "小剛最後對小欣說了什麼？",
-            "options": ["「原來運動服很舒服！」", "「對不起，我之前嘲笑妳。」", "「妳還是應該穿裙子。」", "「妳不應該跑步這麼快。」"],
-            "answer": "「對不起，我之前嘲笑妳。」"
-          },
-          {
-            "question": "故事主要想傳達的是什麼？",
-            "options": ["只有男生可以穿運動服", "每個人都可以選擇自己喜歡的穿著", "女生應該穿裙子", "男生不應該道歉"],
-            "answer": "每個人都可以選擇自己喜歡的穿著"
-          }
-	]
+
+
+
+        {
+            "difficulty": "medium",
+            "question_text": "故事中，小剛的行為最能用哪個詞來形容？",
+            "options": {"A":"友善互動", "B":"性別刻板印象", "C":"欺騙行為"},
+            "answer": "B",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
+        },
+        {
+            "difficulty": "medium",
+            "question_text": "小欣穿運動服的真正原因是什麼？",
+            "options": {"A":"她想要裝成男生", "B":"她喜歡跑步且覺得方便", "C":"因為媽媽要她這樣穿"},
+            "answer": "B",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
+        },
+
+
+
+        {
+            "difficulty": "hard",
+            "question_text": "「外表不能定義一個人」這句話的核心涵義是什麼？",
+            "options": {"A":"衣著無法決定一個人的價值與能力", "B":"每個人都應該穿一樣的衣服", "C":"長得好看最重要"},
+            "answer": "A",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
+        },
+        {
+            "difficulty": "hard",
+            "question_text": "小欣的回應展現了哪種個人特質？",
+            "options": {"A":"盲目服從", "B":"害怕別人意見", "C":"勇敢與自信"},
+            "answer": "C",
+            "enemy_img": "quiz/enemy_stereotype.png",
+            "player_img": "quiz/player_hsin.png"
+        }
+        
+      ],
+      "full_story": {
+        "introduction": "這是『他是她』章節的完整故事摘要。",
+        "full_text": "從前從前，在一個充滿陽光的班級裡...",
+        "character_names": ["小欣", "小剛", "旁白"]
       }
-    },
+    }, 
+
+    
     {
-      "title": "勇敢王子不打仗",
-      "chapter": "1-3",
-      "music": "music.mp3",
+      "chapter_number": "1-2",
+      "title": "粉紅與藍天",
+      "game_type": "標準選擇題",
+      "description": "這是第二篇文章的描述...",
+      "novel_bg": "backgrounds/chapter_1_2_bg.jpg",
+      "novel_music": "music/chapter_1_2.mp3",      
       "dialogues": [
-        {
-          "sequence": 1,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "castle.jpg",
-          "text": "在遙遠的晨光王國裡，國王一直期望他的獨子——小瑞王子，成為一名英勇的戰士。他從小就被送去劍術訓練場，接受最嚴格的軍事訓練。但小瑞並不喜歡打仗，他喜歡畫畫、寫詩，還對花園裡的花草有濃厚的興趣"
-        },
-        {
-          "sequence": 2,
-          "character": "小剛",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_001.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "小欣，妳怎麼穿得像個男生一樣？是不是穿到你弟弟的衣服了？"
-        },
-        {
-          "sequence": 3,
-          "character": "小欣",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_001.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "沒有啊！因為我很喜歡跑步，所以才穿運動服，這樣也比較方便，而且穿運動服很舒服！"
-        },        
-        {
-          "sequence": 4,
-          "character": "小剛",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_002.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "可是女生就應該穿裙子啊！妳這樣看起來很奇怪，大家都覺得妳不像女生。"
-        },        
-        {
-          "sequence": 5,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "旁邊的小晴皺起眉頭，但沒有說話，只是靜靜地看著這一切。"
-        },
-        {
-          "sequence": 6,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。"
-        },
-        {
-          "sequence": 7,
-          "character": "貓頭鷹老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "貓頭鷹老師_001.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "同學們，我今天想問大家一個問題：什麼是女生應該做的，什麼是男生應該做的？"
-        },
-        {
-          "sequence": 8,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "小剛舉手。"
-        },
-        {
-          "sequence": 9,
-          "character": "小剛",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "小剛_003.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。"
-        },
-        {
-          "sequence": 10,
-          "character": "貓頭鷹老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小剛.png",
-          "voice": "貓頭鷹老師_002.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "可是，有沒有人想過，這些規定是誰訂的？衣服應該是用來保護我們的身體或是裝飾打扮的，不是嗎？所以每個人都可以選擇自己喜歡的穿著，不應該性別刻板印象哦！"
-        },
-        {
-          "sequence": 11,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "小晴舉手。"
-        },
-        {
-          "sequence": 12,
-          "character": "小晴",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小晴.png",
-          "voice": "小晴_001.mp3",
-          "avatar": "小晴2.png",
-          "background": "playground.jpg",
-          "text": "老師，我也覺得小欣穿運動服沒什麼不對！"
-        },
-        {
-          "sequence": 13,
-          "character": "貓頭鷹老師",
-          "image1": "貓頭鷹老師.png",
-          "image2": "小晴.png",
-          "voice": "貓頭鷹老師_003.mp3",
-          "avatar": "貓頭鷹老師2.png",
-          "background": "playground.jpg",
-          "text": "很好，小晴說得對。小欣穿運動服是因為她喜歡，而且跑步也比較方便，這是她的選擇。而我們應該尊重每個人的選擇，對不對？"
-        },
-        {
-          "sequence": 14,
-          "character": "旁白",
-          "image1": null,
-          "image2": null,
-          "voice": null,
-          "avatar": null,
-          "background": "playground.jpg",
-          "text": "幾天後的體育課，小剛發現小欣跑步比班上的所有人都快。"
-        },
-        {
-          "sequence": 15,
-          "character": "小剛",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_004.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "哇，小欣，妳真的跑得好快！怎麼做到的？"
-        },
-        {
-          "sequence": 16,
-          "character": "小欣",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_002.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "因為我很喜歡跑步，所以每天放學後都會留下來練習。"
-        },
-        {
-          "sequence": 17,
-          "character": "小剛",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小剛_005.mp3",
-          "avatar": "小剛2.png",
-          "background": "playground.jpg",
-          "text": "原來如此！對不起，我之前嘲笑妳穿運動服。其實我覺得妳很酷！"
-        },
-        {
-          "sequence": 18,
-          "character": "小欣",
-          "image1": "小欣.png",
-          "image2": "小剛.png",
-          "voice": "小欣_003.mp3",
-          "avatar": "小欣2.png",
-          "background": "playground.jpg",
-          "text": "沒關係，希望大家知道，衣服或外貌不能定義一個人。我只是在做自己而已。"
-        }],
-      "player": 
-        {
-          "name": "小欣",
-          "image": "小欣.png",
-          "health": 5
-        },
-        "enemy": 
-        {
-          "name": "國王",
-          "image": "國王.png",
-          "background": "castle.jpg"
-        },
-      "quiz": {
-        "easy": [
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          },
-          {
-            "question": "小瑞王子喜歡做什麼？",
-            "options": ["畫畫和寫詩", "劍術訓練", "打仗", "練習騎馬"],
-            "answer": "畫畫和寫詩"
-          }
-        ],
-        "medium": [
-          {
-            "question": "故事中，小剛的行為屬於哪一種現象？",
-            "options": ["友善互動", "性別刻板印象", "欺騙行為"],
-            "answer": "性別刻板印象"
-          },
-          {
-            "question": "小剛的想法改變的關鍵是什麼？",
-            "options": ["小欣跑步比他快", "小晴勸他", "老師罰他反省", "小欣換回裙子"],
-            "answer": "小欣跑步比他快"
-          },
-          {
-            "question": "老師在課堂上問了一個重要問題，目的是什麼？",
-            "options": ["讓小剛知道自己的錯誤", "讓同學們討論性別刻板印象", "讓小欣覺得自己錯了"],
-            "answer": "讓同學們討論性別刻板印象"
-          },
-          {
-            "question": "小欣穿運動服代表什麼？",
-            "options": ["她想要裝成男生", "她不喜歡裙子", "她有自己的選擇權"],
-            "answer": "她有自己的選擇權"
-          },
-          {
-            "question": "小剛最後學到了什麼？",
-            "options": ["不應該隨便嘲笑別人", "運動服比裙子好", "女生不能跑步", "只有男生可以穿運動服"],
-            "answer": "不應該隨便嘲笑別人"
-          },
-          {
-            "question": "小晴在故事中代表什麼角色？",
-            "options": ["加害者", "受害者", "旁觀者"],
-            "answer": "旁觀者"
-          },
-          {
-            "question": "小欣如何回應小剛的嘲笑？",
-            "options": ["她反擊並嘲笑小剛", "她難過地跑開", "她微笑並解釋自己喜歡運動服", "她換回裙子"],
-            "answer": "她微笑並解釋自己喜歡運動服"
-          },
-          {
-            "question": "故事中，小剛改變態度的象徵是什麼？",
-            "options": ["他主動道歉", "他幫小欣換衣服", "他不再說話", "他開始穿裙子"],
-            "answer": "他主動道歉"
-          },
-          {
-            "question": "在接力賽中，大家學到了什麼？",
-            "options": ["只有穿運動服才能跑快", "每個人都有自己的特點，合作才能成功", "只有男生才能參加比賽", "運動服是最重要的比賽條件"],
-            "answer": "每個人都有自己的特點，合作才能成功"
-          },
-          {
-            "question": "這個故事最主要的核心價值是什麼？",
-            "options": ["服裝代表性別", "尊重與包容", "運動能力最重要", "競賽是最重要的事情"],
-            "answer": "尊重與包容"
-          }
-	],
-        "hard": [
-          {
-            "question": "「性別刻板印象」最好的定義是什麼？",
-            "options": ["只要是女生就該穿裙子，男生該穿褲子", "人們對某個性別有固定的想法，不允許改變", "每個人都該有一樣的興趣"],
-            "answer": "人們對某個性別有固定的想法，不允許改變"
-          },
-          {
-            "question": "什麼情況算是打破性別刻板印象？",
-            "options": ["男生學做料理", "女生只能當護士", "男生不應該玩娃娃", "女生不應該剪短髮"],
-            "answer": "男生學做料理"
-          },
-          {
-            "question": "為什麼小剛一開始會有刻板印象？",
-            "options": ["因為社會上長期有這樣的期待", "因為小欣真的穿錯衣服了", "因為男生應該都這樣想"],
-            "answer": "因為社會上長期有這樣的期待"
-          },
-          {
-            "question": "「外表不能定義一個人」的意思是什麼？",
-            "options": ["每個人都應該穿一樣的衣服", "衣著無法決定一個人的價值與能力", "長得好看最重要", "男生和女生應該穿一樣的衣服"],
-            "answer": "衣著無法決定一個人的價值與能力"
-          },
-          {
-            "question": "小欣的行為展現了哪種價值？",
-            "options": ["勇敢與自信", "盲目服從", "害怕別人意見"],
-            "answer": "勇敢與自信"
-          },
-          {
-            "question": "在健康課上，老師希望學生學到什麼？",
-            "options": ["男生和女生應該有明確的區別", "每個人都可以自由選擇自己的喜好", "運動服比裙子好", "女生應該穿裙子"],
-            "answer": "每個人都可以自由選擇自己的喜好"
-          },
-          {
-            "question": "小剛後來的轉變代表什麼？",
-            "options": ["他開始理解並尊重多樣性", "他變得更會跑步", "他開始學習畫畫", "他不再穿褲子"],
-            "answer": "他開始理解並尊重多樣性"
-          },
-          {
-            "question": "這個故事對我們的啟發是？",
-            "options": ["我們應該勇敢做自己", "衣服可以改變一個人", "只有運動好的人才值得尊重", "服從別人的期待最重要"],
-            "answer": "我們應該勇敢做自己"
-          },
-          {
-            "question": "小晴的角色代表？",
-            "options": ["旁觀但願意支持的人", "主要的對立者", "只有男生才能參加比賽", "完全沒有意見的人", "問題的製造者"],
-            "answer": "旁觀但願意支持的人"
-          },
-          {
-            "question": "「世界變得更包容」的意思是？",
-            "options": ["接受並尊重不同的人", "只要別人喜歡，就順從", "改變別人的選擇", "讓大家都一樣"],
-            "answer": "接受並尊重不同的人"
-          }
-	]
+       
+      ],
+      "questions": [
+        
+      ],
+      "full_story": {
+        
       }
-    }
+    }, 
+
+    
+    {
+      "chapter_number": "1-3",
+      "title": "力量的展現",
+      "game_type": "情境挑戰題",
+      "description": "這是第三篇文章的描述...",
+      "novel_bg": "backgrounds/chapter_1_3_bg.jpg",
+      "novel_music": "music/chapter_1_3.mp3",
+      "dialogues": [
+       
+      ],
+      "questions": [
+        
+      ],
+      "full_story": {
+        
+      }
+    }  
   ]
 }
