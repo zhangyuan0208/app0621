@@ -16,20 +16,80 @@
     {
       "name": "旁白",
       "intro": "故事的敘述者，引導劇情的發展。",
-      "character_avatar": "avatars/narrator.png",
+      "character_avatar": "",
       "character_img": ""
     },
     {
       "name": "小欣",
       "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
       "character_avatar": "avatars/hsin_avatar.png",
-      "character_img": "sprites/hsin_sprite.png"
+      "character_img": "characters/hsin_sprite.png"
     },
     {
       "name": "小剛",
       "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
       "character_avatar": "avatars/kang_avatar.png",
-      "character_img": "sprites/kang_sprite.png"
+      "character_img": "characters/kang_sprite.png"
+    },
+    {
+      "name": "小晴",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
+    },
+    {
+      "name": "小宇",
+      "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
+      "character_avatar": "avatars/kang_avatar.png",
+      "character_img": "characters/kang_sprite.png"
+    },
+    {
+      "name": "小安",
+      "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
+      "character_avatar": "avatars/kang_avatar.png",
+      "character_img": "characters/kang_sprite.png"
+    },
+    {
+      "name": "老師",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
+    },
+    {
+      "name": "路人甲",
+      "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
+      "character_avatar": "avatars/kang_avatar.png",
+      "character_img": "characters/kang_sprite.png"
+    },
+    {
+      "name": "路人乙",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
+    },
+    {
+      "name": "路人丙",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
+    },
+    {
+      "name": "小瑞王子",
+      "intro": "一開始抱持著刻板印象，但後來學會尊重他人的男孩。",
+      "character_avatar": "avatars/kang_avatar.png",
+      "character_img": "characters/kang_sprite.png"
+    },
+    {
+      "name": "國王",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
+    },
+    {
+      "name": "小莉公主",
+      "intro": "活潑自信的女孩，堅持做自己喜歡的事。",
+      "character_avatar": "avatars/hsin_avatar.png",
+      "character_img": "characters/hsin_sprite.png"
     }
   ],
   "stories": [
@@ -46,121 +106,882 @@
           "speaker": "旁白",
           "character_left": null,
           "character_right": null,
-          "text": "小欣平時喜歡穿運動服...",
-          "bg_img": "scenes/playground.jpg"
+          "text": "小欣平時喜歡穿運動服，看起來和太陽班的其他女生不太一樣。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
         },
         {
           "sequence": 2,
           "speaker": "小剛",
-          "character_left": "小欣",
-          "character_right": "小剛",
-          "text": "小欣，妳怎麼穿得像個男生一樣？",
-          "voice": "voices/kang_001.mp3",
-          "bg_img": "scenes/playground.jpg",
-          "bg_music": "voices/kang_001.mp3"
+          "character_left": null,
+          "character_right": null,
+          "text": "「小欣，妳怎麼穿得像個男生一樣？是不是穿到你弟弟的衣服了？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 3,
+          "speaker": "小欣",
+          "character_left": null,
+          "character_right": null,
+          "text": "（笑了笑）「沒有啊！因為我很喜歡跑步，所以才穿運動服，這樣也比較方便，而且穿運動服很舒服！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 4,
+          "speaker": "小剛",
+          "character_left": null,
+          "character_right": null,
+          "text": "「可是女生就應該穿裙子啊！妳這樣看起來很奇怪，大家都覺得妳不像女生。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 5,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "旁邊的小晴皺起眉頭，但沒有說話，只是靜靜地看著這一切。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 6,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 7,
+          "speaker": "老師",
+          "character_left": null,
+          "character_right": null,
+          "text": "「同學們，我今天想問大家一個問題：什麼是女生應該做的，什麼是男生應該做的？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 8,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小剛舉手。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 9,
+          "speaker": "小剛",
+          "character_left": null,
+          "character_right": null,
+          "text": "「女生應該穿裙子，男生應該穿褲子！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 10,
+          "speaker": "老師",
+          "character_left": null,
+          "character_right": null,
+          "text": "「可是，有沒有人想過，這些規定是誰訂的？衣服應該是用來保護我們的身體或是裝飾打扮的，不是嗎？所以每個人都可以選擇自己喜歡的穿著，不應該性別刻板印象哦！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 11,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小晴舉手。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 12,
+          "speaker": "小晴",
+          "character_left": null,
+          "character_right": null,
+          "text": "「老師，我也覺得小欣穿運動服沒什麼不對！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 13,
+          "speaker": "老師",
+          "character_left": null,
+          "character_right": null,
+          "text": "「很好，小晴說得對。小欣穿運動服是因為她喜歡，而且跑步也比較方便，這是她的選擇。而我們應該尊重每個人的選擇，對不對？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 14,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "幾天後的體育課，小剛發現小欣跑步比班上的所有人都快。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 15,
+          "speaker": "小剛",
+          "character_left": null,
+          "character_right": null,
+          "text": "「哇，小欣，妳真的跑得好快！怎麼做到的？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 16,
+          "speaker": "小欣",
+          "character_left": null,
+          "character_right": null,
+          "text": "（微笑）「因為我很喜歡跑步，所以每天放學後都會留下來練習。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 17,
+          "speaker": "小剛",
+          "character_left": null,
+          "character_right": null,
+          "text": "（靦腆地說）「原來如此！對不起，我之前嘲笑妳穿運動服。其實我覺得妳很酷！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 18,
+          "speaker": "小欣",
+          "character_left": null,
+          "character_right": null,
+          "text": "「沒關係，希望大家知道，衣服或外貌不能定義一個人。我只是在做自己而已。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
         }
       ],
       "questions": [
-
         {
-            "difficulty": "easy",
-            "question_text": "小欣喜歡穿什麼衣服？",
-            "options": {"A":"洋裝", "B":"運動服", "C":"制服"},
-            "answer": "B",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
+          "difficulty": "medium",
+          "question_text": "故事中，小剛的行為最能用哪個詞來形容？",
+          "options": {
+            "A": "友善互動",
+            "B": "性別刻板印象",
+            "C": "欺騙行為"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
         },
         {
-            "difficulty": "easy",
-            "question_text": "小剛一開始覺得女生應該穿什麼？",
-            "options": {"A":"短褲", "B":"運動服", "C":"裙子"},
-            "answer": "C",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
-        },
-
-
-
-        {
-            "difficulty": "medium",
-            "question_text": "故事中，小剛的行為最能用哪個詞來形容？",
-            "options": {"A":"友善互動", "B":"性別刻板印象", "C":"欺騙行為"},
-            "answer": "B",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
+          "difficulty": "medium",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
         },
         {
-            "difficulty": "medium",
-            "question_text": "小欣穿運動服的真正原因是什麼？",
-            "options": {"A":"她想要裝成男生", "B":"她喜歡跑步且覺得方便", "C":"因為媽媽要她這樣穿"},
-            "answer": "B",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
-        },
-
-
-
-        {
-            "difficulty": "hard",
-            "question_text": "「外表不能定義一個人」這句話的核心涵義是什麼？",
-            "options": {"A":"衣著無法決定一個人的價值與能力", "B":"每個人都應該穿一樣的衣服", "C":"長得好看最重要"},
-            "answer": "A",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
+          "difficulty": "hard",
+          "question_text": "「外表不能定義一個人」這句話的核心涵義是什麼？",
+          "options": {
+            "A": "衣著無法決定一個人的價值與能力",
+            "B": "每個人都應該穿一樣的衣服",
+            "C": "長得好看最重要"
+          },
+          "answer": "A",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
         },
         {
-            "difficulty": "hard",
-            "question_text": "小欣的回應展現了哪種個人特質？",
-            "options": {"A":"盲目服從", "B":"害怕別人意見", "C":"勇敢與自信"},
-            "answer": "C",
-            "enemy_img": "quiz/enemy_stereotype.png",
-            "player_img": "quiz/player_hsin.png"
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
         }
-        
       ],
       "full_story": {
-        "introduction": "這是『他是她』章節的完整故事摘要。",
-        "full_text": "從前從前，在一個充滿陽光的班級裡...",
-        "character_names": ["小欣", "小剛", "旁白"]
+        "introduction": "這是『他是她』章節的完整故事摘要。在這個故事中，我們將看到小欣如何用自信面對他人的質疑。",
+        "full_text": "旁白：小欣平時喜歡穿運動服，看起來和太陽班的其他女生不太一樣。\n小剛：「小欣，妳怎麼穿得像個男生一樣？是不是穿到你弟弟的衣服了？」\n小欣：（笑了笑）「沒有啊！因為我很喜歡跑步，所以才穿運動服，這樣也比較方便，而且穿運動服很舒服！」\n小剛：「可是女生就應該穿裙子啊！妳這樣看起來很奇怪，大家都覺得妳不像女生。」\n旁白：旁邊的小晴皺起眉頭，但沒有說話，只是靜靜地看著這一切。\n旁白：老師注意到了班上對小欣的議論，決定利用一堂健康課來討論性別特質。\n老師：「同學們，我今天想問大家一個問題：什麼是女生應該做的，什麼是男生應該做的？」\n旁白：小剛舉手。\n小剛：「女生應該穿裙子，男生應該穿褲子！」\n老師：「可是，有沒有人想過，這些規定是誰訂的？衣服應該是用來保護我們的身體或是裝飾打扮的，不是嗎？所以每個人都可以選擇自己喜歡的穿著，不應該性別刻板印象哦！」\n旁白：小晴舉手。\n小晴：「老師，我也覺得小欣穿運動服沒什麼不對！」\n老師：「很好，小晴說得對。小欣穿運動服是因為她喜歡，而且跑步也比較方便，這是她的選擇。而我們應該尊重每個人的選擇，對不對？」\n旁白：幾天後的體育課，小剛發現小欣跑步比班上的所有人都快。\n小剛：「哇，小欣，妳真的跑得好快！怎麼做到的？」\n小欣：（微笑）「因為我很喜歡跑步，所以每天放學後都會留下來練習。」\n小剛：（靦腆地說）「原來如此！對不起，我之前嘲笑妳穿運動服。其實我覺得妳很酷！」\n小欣：「沒關係，希望大家知道，衣服或外貌不能定義一個人。我只是在做自己而已。」",
+        "character_names": [
+          "小欣",
+          "小晴",
+          "旁白",
+          "老師",
+          "小剛"
+        ]
       }
-    }, 
-
-    
+    },
     {
-      "chapter_number": "1-2",
-      "title": "粉紅與藍天",
+      "chapter_num": "1-2",
+      "title": "彩虹風箏",
       "game_type": "標準選擇題",
-      "description": "這是第二篇文章的描述...",
+      "description": "本章節描述小安因穿著粉紅色的圍裙被質疑。",
       "novel_bg": "backgrounds/chapter_1_2_bg.jpg",
-      "novel_music": "music/chapter_1_2.mp3",      
+      "novel_music": "music/chapter_1_2.mp3",
       "dialogues": [
-       
+        {
+          "sequence": 1,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小晴和小宇是太陽班的同學，也是好朋友，他們放學後總是一起到公園放風箏。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 2,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "一天，有個新同學小安來到了太陽班。小安和大家不太一樣，因為他穿著粉紅色的圍裙，手裡抱著一個彩色的風箏，所以他一走進教室時便吸引了大家的目光。當他站到講台前自我介紹時，教室裡的氣氛瞬間變得非常奇怪。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 3,
+          "speaker": "路人甲",
+          "character_left": null,
+          "character_right": null,
+          "text": "「他穿的是圍裙嗎？還有彩虹風箏？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 4,
+          "speaker": "路人乙",
+          "character_left": null,
+          "character_right": null,
+          "text": "「哈哈哈，這是男生會喜歡的東西嗎？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 5,
+          "speaker": "路人丙",
+          "character_left": null,
+          "character_right": null,
+          "text": "「看起來好奇怪哦，他不覺得丟臉嗎？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 6,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "一陣竊竊私語伴隨著笑聲在教室中流竄。小安的臉瞬間漲得通紅，他低著頭，手緊緊抓著圍裙的下擺，努力裝作沒聽見。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 7,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小晴和小宇也聽到了這些話。小晴皺著眉，輕聲對小宇說。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 8,
+          "speaker": "小晴",
+          "character_left": null,
+          "character_right": null,
+          "text": "「大家怎麼這麼不友善？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 9,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "但小宇卻有些猶豫。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 10,
+          "speaker": "小宇",
+          "character_left": null,
+          "character_right": null,
+          "text": "「可是……說實話，我也覺得有點奇怪，男生為什麼要穿圍裙？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 11,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小晴沒有回答，她只是靜靜地看著小安站在講台上，背影顯得有些孤單。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 12,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "之後，因為越來越多的批評，小安成了班上的話題人物，但並不是好的一面。當他穿著圍裙、拿著風箏走進教室時，總有人低聲嘲笑他。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 13,
+          "speaker": "路人甲",
+          "character_left": null,
+          "character_right": null,
+          "text": "「彩虹男孩又來了。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 14,
+          "speaker": "路人乙",
+          "character_left": null,
+          "character_right": null,
+          "text": "「你的圍裙真好看，下次可以借我做家務嗎？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 15,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "甚至有人故意在他經過時故意撞他，發出誇張的笑聲",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 16,
+          "speaker": "路人丙",
+          "character_left": null,
+          "character_right": null,
+          "text": "：「喂，小心你的風箏不要掉了！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 17,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "這種情況持續了好幾天，連小晴和小宇都開始感到不安。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 18,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小晴對小宇說",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 19,
+          "speaker": "小晴",
+          "character_left": null,
+          "character_right": null,
+          "text": "「我們應該幫幫他吧，這樣下去，他一定很難受。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 20,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小宇卻搖了搖頭",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 21,
+          "speaker": "小宇",
+          "character_left": null,
+          "character_right": null,
+          "text": "「可是，我們要是幫了他，會不會也被別人嘲笑？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 22,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "兩人陷入了沉默，但他們心裡都知道，大家的行為讓班上的氣氛變得非常差。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 23,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小安在心裡默默地問道",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 24,
+          "speaker": "小安",
+          "character_left": null,
+          "character_right": null,
+          "text": "「難道男生就不能喜歡粉紅色的圍裙和彩虹風箏嗎？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        }
       ],
       "questions": [
-        
+        {
+          "difficulty": "medium",
+          "question_text": "故事中，小剛的行為最能用哪個詞來形容？",
+          "options": {
+            "A": "友善互動",
+            "B": "性別刻板印象",
+            "C": "欺騙行為"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "medium",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "「外表不能定義一個人」這句話的核心涵義是什麼？",
+          "options": {
+            "A": "衣著無法決定一個人的價值與能力",
+            "B": "每個人都應該穿一樣的衣服",
+            "C": "長得好看最重要"
+          },
+          "answer": "A",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        }
       ],
       "full_story": {
-        
+        "introduction": "這是『彩虹風箏』章節的完整故事摘要。在這個故事中，我們將看到小欣如何用自信面對他人的質疑。",
+        "full_text": "旁白：小晴和小宇是太陽班的同學，也是好朋友，他們放學後總是一起到公園放風箏。\n旁白：一天，有個新同學小安來到了太陽班。小安和大家不太一樣，因為他穿著粉紅色的圍裙，手裡抱著一個彩色的風箏，所以他一走進教室時便吸引了大家的目光。當他站到講台前自我介紹時，教室裡的氣氛瞬間變得非常奇怪。\n路人甲：「他穿的是圍裙嗎？還有彩虹風箏？」\n路人乙：「哈哈哈，這是男生會喜歡的東西嗎？」\n路人丙：「看起來好奇怪哦，他不覺得丟臉嗎？」\n旁白：一陣竊竊私語伴隨著笑聲在教室中流竄。小安的臉瞬間漲得通紅，他低著頭，手緊緊抓著圍裙的下擺，努力裝作沒聽見。\n旁白：小晴和小宇也聽到了這些話。小晴皺著眉，輕聲對小宇說。\n小晴：「大家怎麼這麼不友善？」\n旁白：但小宇卻有些猶豫。\n小宇：「可是……說實話，我也覺得有點奇怪，男生為什麼要穿圍裙？」\n旁白：小晴沒有回答，她只是靜靜地看著小安站在講台上，背影顯得有些孤單。\n旁白：之後，因為越來越多的批評，小安成了班上的話題人物，但並不是好的一面。當他穿著圍裙、拿著風箏走進教室時，總有人低聲嘲笑他。\n路人甲：「彩虹男孩又來了。」\n路人乙：「你的圍裙真好看，下次可以借我做家務嗎？」\n旁白：甚至有人故意在他經過時故意撞他，發出誇張的笑聲\n路人丙：：「喂，小心你的風箏不要掉了！」\n旁白：這種情況持續了好幾天，連小晴和小宇都開始感到不安。\n旁白：小晴對小宇說\n小晴：「我們應該幫幫他吧，這樣下去，他一定很難受。」\n旁白：小宇卻搖了搖頭\n小宇：「可是，我們要是幫了他，會不會也被別人嘲笑？」\n旁白：兩人陷入了沉默，但他們心裡都知道，大家的行為讓班上的氣氛變得非常差。\n旁白：小安在心裡默默地問道\n小安：「難道男生就不能喜歡粉紅色的圍裙和彩虹風箏嗎？」",
+        "character_names": [
+          "小宇",
+          "小晴",
+          "小安",
+          "旁白",
+          "路人甲",
+          "路人丙",
+          "路人乙"
+        ]
       }
-    }, 
-
-    
+    },
     {
-      "chapter_number": "1-3",
-      "title": "力量的展現",
-      "game_type": "情境挑戰題",
-      "description": "這是第三篇文章的描述...",
+      "chapter_num": "1-3",
+      "title": "勇敢王子不打仗",
+      "game_type": "標準選擇題",
+      "description": "本章節描述王子不想要打仗的故事。",
       "novel_bg": "backgrounds/chapter_1_3_bg.jpg",
       "novel_music": "music/chapter_1_3.mp3",
       "dialogues": [
-       
+        {
+          "sequence": 1,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "在遙遠的晨光王國裡，國王一直期望他的獨子——小瑞王子，成為一名英勇的戰士。他從小就被送去劍術訓練場，接受最嚴格的軍事訓練。但小瑞並不喜歡打仗，他喜歡畫畫、寫詩，還對花園裡的花草有濃厚的興趣。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 2,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "一天，國王召見小瑞，神情嚴肅地說",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 3,
+          "speaker": "國王",
+          "character_left": null,
+          "character_right": null,
+          "text": "「瑞兒，作為王子，你的責任是保護王國，而不是拿著畫筆塗鴉！再過幾個月，你就要領軍出征，學會戰鬥是你的天職！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 4,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「父王，我尊敬您，但我不喜歡戰爭。我想用別的方式幫助國家，像設計更堅固的城牆，或讓人民的生活變得更美好……」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 5,
+          "speaker": "國王",
+          "character_left": null,
+          "character_right": null,
+          "text": "「荒唐！一個真正的王子應該手持劍盾，而不是躲在房間裡畫畫！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 6,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「難道身為王子，我就一定要當戰士嗎？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 7,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "幾天後，鄰國的小莉公主來訪，她是全國知名的劍術高手，從不畏懼任何挑戰。她與小瑞一見如故，兩人聊起了自己的夢想與困擾。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 8,
+          "speaker": "小莉公主",
+          "character_left": null,
+          "character_right": null,
+          "text": "「我從小就喜歡劍術，卻總是被說『公主應該溫文儒雅，不該舞刀弄劍』，但我不想按照別人的期待生活！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 9,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「我也一樣，我喜歡創造美好的事物，但父王覺得我應該成為戰士……」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 10,
+          "speaker": "小莉公主",
+          "character_left": null,
+          "character_right": null,
+          "text": "「誰說公主不能拿劍，王子不能畫畫？真正的勇敢，是選擇做自己想做的事，而不是盲目服從別人的期待！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 11,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小瑞聽了，心中燃起了希望。他開始思考，有沒有其他方式可以證明自己的價值？",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 12,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "不久後，敵國突然來犯，國王準備派小瑞上戰場。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 13,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「父王，請給我一個機會，讓我用我的方式來保護王國！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 14,
+          "speaker": "國王",
+          "character_left": null,
+          "character_right": null,
+          "text": "「戰爭靠的是劍與盾，哪來什麼別的方式？」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 15,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「但戰爭也需要智慧！如果能談和，就不用犧牲士兵的性命！」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 16,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "國王猶豫了一下，最終答應了小瑞的請求。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 17,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "小瑞運用自己的繪畫才能，設計了一張詳細的地圖，標示出國家地形的優勢，並設計了巧妙的防禦工事。他還寫了一封誠懇的信，向敵國提議和平談判。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 18,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "在小莉的幫助下，敵國的將軍讀完信後深受感動，決定與晨光王國簽訂和平協議，避免了戰爭。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 19,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "戰爭結束後，國王對小瑞另眼相看，讚許地說：「瑞兒，原來你真的有辦法用你自己的方式來保護王國。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 20,
+          "speaker": "小瑞王子",
+          "character_left": null,
+          "character_right": null,
+          "text": "「勇敢，不只是拿起武器，而是堅持做自己認為對的事。」",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 21,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "另一方面，小莉也向父王證明了她的能力，成為王國的首席護衛。",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        },
+        {
+          "sequence": 22,
+          "speaker": "旁白",
+          "character_left": null,
+          "character_right": null,
+          "text": "從此以後，晨光王國的人民開始明白：王子不一定要成為戰士，公主也不一定只能優雅端莊，每個人都該被允許成為最好的自己！",
+          "bg_img": null,
+          "voice": null,
+          "bg_music": null
+        }
       ],
       "questions": [
-        
+        {
+          "difficulty": "medium",
+          "question_text": "故事中，小剛的行為最能用哪個詞來形容？",
+          "options": {
+            "A": "友善互動",
+            "B": "性別刻板印象",
+            "C": "欺騙行為"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "medium",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "「外表不能定義一個人」這句話的核心涵義是什麼？",
+          "options": {
+            "A": "衣著無法決定一個人的價值與能力",
+            "B": "每個人都應該穿一樣的衣服",
+            "C": "長得好看最重要"
+          },
+          "answer": "A",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        },
+        {
+          "difficulty": "hard",
+          "question_text": "小欣喜歡穿什麼衣服？",
+          "options": {
+            "A": "洋裝",
+            "B": "運動服",
+            "C": "制服"
+          },
+          "answer": "B",
+          "player_img": "quiz/player_hsin.png",
+          "enemy_img": "quiz/enemy_stereotype.png"
+        }
       ],
       "full_story": {
-        
+        "introduction": "這是『勇敢王子不打仗』章節的完整故事摘要。在這個故事中，我們將看到小欣如何用自信面對他人的質疑。",
+        "full_text": "旁白：在遙遠的晨光王國裡，國王一直期望他的獨子——小瑞王子，成為一名英勇的戰士。他從小就被送去劍術訓練場，接受最嚴格的軍事訓練。但小瑞並不喜歡打仗，他喜歡畫畫、寫詩，還對花園裡的花草有濃厚的興趣。\n旁白：一天，國王召見小瑞，神情嚴肅地說\n國王：「瑞兒，作為王子，你的責任是保護王國，而不是拿著畫筆塗鴉！再過幾個月，你就要領軍出征，學會戰鬥是你的天職！」\n小瑞：「父王，我尊敬您，但我不喜歡戰爭。我想用別的方式幫助國家，像設計更堅固的城牆，或讓人民的生活變得更美好……」\n國王：「荒唐！一個真正的王子應該手持劍盾，而不是躲在房間裡畫畫！」\n小瑞：「難道身為王子，我就一定要當戰士嗎？」\n旁白：幾天後，鄰國的小莉公主來訪，她是全國知名的劍術高手，從不畏懼任何挑戰。她與小瑞一見如故，兩人聊起了自己的夢想與困擾。\n小莉：「我從小就喜歡劍術，卻總是被說『公主應該溫文儒雅，不該舞刀弄劍』，但我不想按照別人的期待生活！」\n小瑞：「我也一樣，我喜歡創造美好的事物，但父王覺得我應該成為戰士……」\n小莉：「誰說公主不能拿劍，王子不能畫畫？真正的勇敢，是選擇做自己想做的事，而不是盲目服從別人的期待！」\n旁白：小瑞聽了，心中燃起了希望。他開始思考，有沒有其他方式可以證明自己的價值？\n旁白：不久後，敵國突然來犯，國王準備派小瑞上戰場。\n小瑞：「父王，請給我一個機會，讓我用我的方式來保護王國！」\n國王：「戰爭靠的是劍與盾，哪來什麼別的方式？」\n小瑞：「但戰爭也需要智慧！如果能談和，就不用犧牲士兵的性命！」\n旁白：國王猶豫了一下，最終答應了小瑞的請求。\n旁白：小瑞運用自己的繪畫才能，設計了一張詳細的地圖，標示出國家地形的優勢，並設計了巧妙的防禦工事。他還寫了一封誠懇的信，向敵國提議和平談判。\n旁白：在小莉的幫助下，敵國的將軍讀完信後深受感動，決定與晨光王國簽訂和平協議，避免了戰爭。\n旁白：戰爭結束後，國王對小瑞另眼相看，讚許地說：「瑞兒，原來你真的有辦法用你自己的方式來保護王國。」\n小瑞：「勇敢，不只是拿起武器，而是堅持做自己認為對的事。」\n旁白：另一方面，小莉也向父王證明了她的能力，成為王國的首席護衛。\n旁白：從此以後，晨光王國的人民開始明白：王子不一定要成為戰士，公主也不一定只能優雅端莊，每個人都該被允許成為最好的自己！",
+        "character_names": [
+          "國王",
+          "小瑞",
+          "小莉",
+          "旁白"
+        ]
       }
-    }  
+    }
   ]
 }
