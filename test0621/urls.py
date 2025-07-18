@@ -16,13 +16,13 @@ urlpatterns = [
 
     # --- II. 主要流程與選單 ---
     # 網站首頁，對應到主選單
-    path('', views.main_menu_view, name='main_menu'),
+    path('main-menu/', views.main_menu_view, name='main_menu'),
     # 每日打卡功能的 URL
     path('daily-check-in/', views.daily_check_in_view, name='daily_check_in_view'),
 
     # --- III. 遊戲核心系統 ---
     # 星球選擇列表
-    path('planets/', views.planet_list_view, name='planet_list_view'),
+    path('planet-select/', views.planet_select_view, name='planet_select'),
     # 特定星球的章節列表，<int:planet_id> 是動態參數
     path('planet/<int:planet_id>/', views.chapter_list_view, name='chapter_list_view'),
     # 視覺小說頁面
@@ -38,8 +38,10 @@ urlpatterns = [
     # --- IV. 周邊系統 ---
     # 完整故事列表
     path('full-stories/', views.full_story_list_view, name='full_story_list_view'),
-    # AI 小學堂
+    # AI 小學堂頁面
     path('ai-school/', views.ai_school_view, name='ai_school_view'),
+    # 【新增】處理 AI 問答的後端代理 URL
+    path('ai-school/ask/', views.ai_ask_view, name='ai_ask_view'),
     # 設定頁面
     path('settings/', views.settings_view, name='settings_view'),
     # 成長軌跡

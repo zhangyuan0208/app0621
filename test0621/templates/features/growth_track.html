@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【可滾動版】結果畫面</title>
+    <style>
+        /* (此處省略大部分與之前相同的基礎CSS...) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        :root {
+            --color-gold: #FFD700; --color-gold-dark: #E6A23C; --color-blue: #4A90E2;
+            --color-blue-dark: #357ABD; --text-dark: #333; --text-light: #666;
+            --bg-light: #f4f7fc; --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif; background-color: var(--bg-light); margin: 0;
+            padding: 30px; display: flex; justify-content: center; align-items: flex-start;
+            gap: 40px; flex-wrap: wrap;
+        }
+        .result-screen-unified {
+            background-color: #fff; border-radius: 20px; box-shadow: var(--card-shadow);
+            width: 420px; padding: 25px 30px; border-top: 5px solid; display: flex;
+            flex-direction: column; gap: 20px;
+        }
+        .result-screen-unified .header-title{font-size:28px;font-weight:900;text-align:center;margin:0;letter-spacing:2px}
+        .result-screen-unified .core-visual-area{width:100%;height:220px;display:flex;align-items:center;justify-content:center}
+        .result-screen-unified .data-rewards-area{display:flex;gap:20px;background-color:#f9f9fb;border-radius:12px;padding:20px;align-items:center}
+        .data-rewards-area .stats-box{flex-grow:1; min-width: 0;} /* 確保flex item可以縮小 */
+        .data-rewards-area .rewards-box{flex-shrink:0;text-align:center}
+        .rewards-box .reward-thumbnail{width:60px;height:82px;border-radius:8px;background-image:url(https://i.imgur.com/L5kELgw.jpeg);background-size:cover;margin:0 auto 10px;border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+        .rewards-box .stars{font-size:24px;color:var(--color-gold);text-shadow:0 1px 3px rgba(255,215,0,.4);line-height:1}
+        .result-screen-unified .character-area{display:flex;align-items:center;gap:15px}
+        .character-area .character-avatar{width:60px;height:60px;border-radius:50%;background-image:url(https://i.imgur.com/sC4p1xL.png);background-size:cover;flex-shrink:0}
+        .character-area .speech-bubble{font-size:15px;color:var(--text-dark);font-weight:500;line-height:1.6}
+        .axis-label { font-size: 12px; fill: #999; text-anchor: middle; }
+        @keyframes grow-bar { to { transform: scaleY(1); } }
+        
+        /* --- 全新：滾動條相關樣式 --- */
+        /* 1. 圖表區的橫向滾動 */
+        .chart-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto; /* 當內容超出時，顯示橫向滾動條 */
+            overflow-y: hidden;
+            padding-bottom: 10px; /* 留出空間給滾動條 */
+        }
+        /* 美化滾動條 (僅適用於webkit內核瀏覽器如Chrome, Edge, Safari) */
+        .chart-scroll-wrapper::-webkit-scrollbar { height: 8px; }
+        .chart-scroll-wrapper::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .chart-scroll-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        .chart-scroll-wrapper::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+        /* 2. 成績列表的垂直滾動 */
+        .score-list-container {
+            max-height: 85px; /* 設定最大高度，超過此高度會出現滾動條 */
+            overflow-y: auto; /* 當內容超出時，顯示垂直滾動條 */
+            padding-right: 10px; /* 留出空間給滾動條 */
+        }
+        .score-list-container h4{font-size:16px;font-weight:700;margin:0 0 8px;text-align:center}
+        .score-list-container .score-list{list-style:none;padding:0;margin:0}
+        .score-list li{font-size:14px;color:var(--text-light);padding:4px 0;text-align:center}
+        /* 美化滾動條 */
+        .score-list-container::-webkit-scrollbar { width: 6px; }
+        .score-list-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+        .score-list-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+        .score-list-container::-webkit-scrollbar-thumb:hover { background: #aaa; }
+        
+        /* --- 卡片主題樣式 (大部分不變) --- */
+        .theme-perfect { border-color: var(--color-gold); }
+        .theme-perfect .header-title { color: var(--color-gold-dark); }
+        .theme-perfect .stats-box h4 { color: var(--color-gold-dark); }
+        .theme-perfect .chart-bar rect { fill: var(--color-gold); }
+        
+        .theme-effort { border-color: var(--color-blue); }
+        .theme-effort .header-title { color: var(--color-blue-dark); }
+        .theme-effort .stats-box h4 { color: var(--color-blue-dark); }
+        .theme-effort .chart-bar rect { fill: var(--color-blue); }
+        .theme-effort .score-list li { border-bottom: 1px solid #eee; }
+        .theme-effort .score-list li:last-child { border-bottom: none; }
+
+        /* --- 直條圖樣式 --- */
+        .chart-bar { transition: filter 0.2s ease; cursor: pointer; }
+        .chart-bar:hover { filter: brightness(1.15); }
+        .chart-bar rect {
+            transform-origin: bottom;
+            transform: scaleY(0);
+            animation: grow-bar 1s ease-out forwards;
+        }
+        .chart-bar .bar-tooltip {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-anchor: middle;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .chart-bar:hover .bar-tooltip { opacity: 1; }
+        /* 依序出現的動畫延遲 */
+        .chart-bar:nth-of-type(1) rect { animation-delay: 0.1s; }
+        .chart-bar:nth-of-type(2) rect { animation-delay: 0.2s; }
+        .chart-bar:nth-of-type(3) rect { animation-delay: 0.3s; }
+        .chart-bar:nth-of-type(4) rect { animation-delay: 0.4s; }
+        .chart-bar:nth-of-type(5) rect { animation-delay: 0.5s; }
+        .chart-bar:nth-of-type(6) rect { animation-delay: 0.6s; }
+        .chart-bar:nth-of-type(7) rect { animation-delay: 0.7s; }
+        
+    </style>
+</head>
+<body>
+
+    <div class="result-screen-unified theme-effort">
+        <h3 class="header-title">挑戰成功！你的努力沒有白費！</h3>
+        <div class="core-visual-area">
+            <div class="chart-scroll-wrapper">
+                <svg class="progress-chart" width="560" height="200" viewBox="0 0 560 200">
+                    <line x1="25" y1="180" x2="550" y2="180" stroke="#eee" stroke-width="2"/>
+                    <g class="chart-bar"><rect x="40" y="149" width="40" height="31" rx="4"></rect><text class="bar-tooltip" x="60" y="144">3分</text></g>
+                    <g class="chart-bar"><rect x="120" y="117" width="40" height="63" rx="4"></rect><text class="bar-tooltip" x="140" y="112">6分</text></g>
+                    <g class="chart-bar"><rect x="200" y="128" width="40" height="52" rx="4"></rect><text class="bar-tooltip" x="220" y="123">5分</text></g>
+                    <g class="chart-bar"><rect x="280" y="96" width="40" height="84" rx="4"></rect><text class="bar-tooltip" x="300" y="91">8分</text></g>
+                    <g class="chart-bar"><rect x="360" y="53" width="40" height="127" rx="4"></rect><text class="bar-tooltip" x="380" y="48">11分</text></g>
+                    <g class="chart-bar"><rect x="440" y="75" width="40" height="105" rx="4"></rect><text class="bar-tooltip" x="460" y="70">10分</text></g>
+                    <g class="chart-bar"><rect x="520" y="32" width="40" height="148" rx="4"></rect><text class="bar-tooltip" x="540" y="27">14分</text></g>
+                    <text class="axis-label" x="60" y="195">1</text>
+                    <text class="axis-label" x="140" y="195">2</text>
+                    <text class="axis-label" x="220" y="195">3</text>
+                    <text class="axis-label" x="300" y="195">4</text>
+                    <text class="axis-label" x="380" y="195">5</text>
+                    <text class="axis-label" x="460" y="195">6</text>
+                    <text class="axis-label" x="540" y="195">7</text>
+                </svg>
+            </div>
+        </div>
+        <div class="data-rewards-area">
+            <div class="stats-box">
+                <div class="score-list-container">
+                    <h4>各次成績紀錄</h4>
+                    <ul class="score-list">
+                        <li>第一次成績：3 / 15</li>
+                        <li>第二次成績：6 / 15</li>
+                        <li>第三次成績：5 / 15</li>
+                        <li>第四次成績：8 / 15</li>
+                        <li>第五次成績：11 / 15</li>
+                        <li>第六次成績：10 / 15</li>
+                        <li>第七次成績：14 / 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="rewards-box">
+                <div class="reward-thumbnail"></div><div class="stars">★★☆</div>
+            </div>
+        </div>
+        <div class="character-area">
+            <div class="character-avatar"></div>
+            <div class="speech-bubble">「每一次的堅持都算數，看看你走了多遠！繼續加油！」</div>
+        </div>
+    </div>
+</body>
+</html>

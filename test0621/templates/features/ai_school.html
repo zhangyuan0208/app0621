@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="ai-school-container">
+    <h2>問答小學堂</h2>
+    <div id="chatbox"></div>
+    <div class="input-container">
+        <textarea id="userInput" placeholder="輸入你的問題..." rows="1"></textarea>
+        <button id="sendMessageBtn">🚀 發送</button>
+        <button id="startListeningBtn">🎤 語音</button>
+    </div>
+    <div id="voiceStatus">語音辨識中...</div>
+</div>
+
+<script>
+    const AI_ASK_URL = "{% url 'ai_ask_view' %}";
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    // 傳遞使用者和機器人的頭像路徑
+    const USER_AVATAR_URL = "{% static 'img/userAvatar.png' %}";
+    const BOT_AVATAR_URL = "{% static 'img/botAvatar.png' %}";
+</script>
+
+<script src="{% static 'js/ai_school.js' %}"></script>
+{% endblock %}

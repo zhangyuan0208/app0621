@@ -1,0 +1,174 @@
+/* static/css/ai_school.css */
+
+html, body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    /* 【修改】確保圖片路徑正確。'../' 代表上一層目錄，從 css/ 回到 static/，再進入 img/ */
+    background-image: url("../img/backgrounds/ai_school.jpg"); 
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    color: #fff;
+    height: 100%;
+    overflow: hidden;
+}
+
+h2 {
+    /* ... 其他樣式 ... */
+    background: linear-gradient(to right, #ffcc70, #ff8e8f);
+
+    /* 為了舊版 Webkit 瀏覽器 (Chrome, Safari) */
+    -webkit-background-clip: text;
+    
+    /* 【新增】這是未來的標準寫法，確保在支援標準的瀏覽器上也能正常顯示 */
+    background-clip: text;
+
+    /* 搭配使用的屬性，讓文字顏色變透明，背景才能透出來 */
+    -webkit-text-fill-color: transparent;
+
+    /* 【新增】標準寫法中，可以直接將 color 設為透明 */
+    color: transparent; 
+    
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+#chatbox {
+    width: 60vw;
+    height: 60vh;
+    overflow-y: scroll;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 10px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.message-container {
+    display: flex;
+    margin: 15px 10px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 25vw;
+    word-break: break-word;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.user-container {
+    justify-content: flex-end;
+}
+
+.bot-container {
+    justify-content: flex-start;
+}
+
+.user {
+    background-color: #a6e3e9;
+    color: #000;
+    text-align: left;
+}
+
+.bot {
+    background-color: #fcd5ce;
+    color: #000;
+    text-align: left;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 8px;
+    box-shadow: 0 0 5px #000;
+}
+
+.timestamp {
+    font-size: 0.75em;
+    color: #ccc;
+    margin-top: 3px;
+}
+
+.message-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-container .message-group {
+    align-items: flex-end;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+textarea#userInput {
+    padding: 8px 12px;
+    width: 50vw;
+    max-width: 500px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+    resize: none;
+    font-size: 1em;
+    line-height: 1.4em;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+button {
+    height: 42px;
+    padding: 0 15px;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #6c63ff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #574fd6;
+}
+
+#chatbox::-webkit-scrollbar {
+    width: 12px;
+}
+
+#chatbox::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+#chatbox::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+#chatbox::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+#voiceStatus {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #ffe66d;
+    font-weight: bold;
+    animation: pulse 1.2s infinite;
+    display: none;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
