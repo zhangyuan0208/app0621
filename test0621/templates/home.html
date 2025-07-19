@@ -5,46 +5,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>遊戲主選單 - 互動星系</title>
-    <!-- 【注意】CSS 檔案名稱已改為 home.css -->
-    <link rel="stylesheet" href="{% static 'css/home.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- 【新增】使用者資訊與登入/登出區塊 -->
     <div class="user-profile">
         {% if user %}
-            <!-- 已登入狀態 -->
-            <img src="{% static user.user_avatar %}" alt="使用者頭像" class="avatar">
-            <span class="nickname">{{ user.nickname }}</span>
-            <a href="{% url 'logout' %}" class="auth-link logout-btn">登出</a>
+            <img src="{% static user.user_avatar %}" alt="使用者頭像" class="avatar" id="django-user-avatar" data-avatar-url="{% static user.user_avatar %}">
+            <span class="nickname" id="django-user-nickname">{{ user.nickname }}</span>
+            <a href="{% url 'account_logout' %}" class="auth-link logout-btn">登出</a>
         {% else %}
-            <!-- 未登入狀態 -->
             <a href="{% url 'login' %}" class="auth-link login-btn">登入 / 註冊</a>
         {% endif %}
     </div>
-    
-    <div class="menu-container">
-        <!-- 遊戲功能按鈕 -->
-        <div class="planet start-game" data-text="開始遊戲" data-url="{% url 'planet_select' %}"></div>
-        <div class="planet settings" data-text="設定" data-url="{% url 'settings' %}"></div> 
-        <div class="planet classroom" data-text="AI 小學堂" data-url="{% url 'ai_classroom' %}"></div>
-        <div class="planet story" data-text="完整故事" data-url="{% url 'full_story_list' %}"></div>
 
-        <!-- 智慧型「成長軌跡」按鈕 -->
+    <div class="menu-container">
+        <div class="planet start-game" data-text="開始遊戲" data-url="{% url 'planet_select' %}"></div>
+        <div class="planet settings" data-text="設定" onclick="openSettings()"></div>
+        <div class="planet classroom" data-text="AI 小學堂" data-url="{% url 'ai_school_view' %}"></div>
+        <div class="planet story" data-text="完整故事" data-url="{% url 'full_story_list_view' %}"></div>
         {% if user %}
-            <div class="planet progress" data-text="成長軌跡" data-url="{% url 'growth_track' user.user_id %}"></div>
+            <div class="planet progress" data-text="成長軌跡" data-url="{% url 'growth_track_view' %}"></div>
         {% else %}
             <div class="planet progress" data-text="成長軌跡 (請先登入)" data-url="{% url 'login' %}"></div>
         {% endif %}
     </div>
-    
     <div id="planet-label"></div>
 
-    <!-- 【注意】JS 檔案名稱已改為 home.js -->
-    <script src="{% static 'js/home.js' %}"></script>
+    <div id="player-info-panel">
+        <div id="player-avatar-frame">
+            <img id="player-avatar" src="{% static 'img/avatars/default_avatar.png' %}" alt="玩家頭像">
+        </div>
+        <span id="player-nickname">訪客</span>
+    </div>
 
+    <div id="check-in-modal" class="modal-overlay">
+        <div class="modal-card">
+            <span id="check-in-close-btn" class="modal-close">&times;</span>
+            <h2>每日打卡紀錄</h2>
+            <div id="check-in-calendar"></div>
+            <hr class="modal-divider">
+            <div id="consecutive-days-info" style="color: #f0f0f0; font-size: 1.1em; margin-bottom: 15px;">
+                連續打卡：<span id="consecutive-days-count" style="font-weight: bold; color: #ffff8d;">0</span> 天
+            </div>
+            <div style="color: #f0f0f0; font-size: 0.8em; margin-bottom: 15px;">
+                （每連續打卡7天可拿到1顆生命結晶）
+            </div>
+            <div id="life-crystal-info">
+                <span class="crystal-icon">💎</span>
+                <p id="crystal-amount">0</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="custom-alert" style="display: none;" class="custom-alert-overlay">
+      <div class="custom-alert-box">
+        <p id="custom-alert-message">提示訊息</p>
+        <button id="custom-alert-ok">確定</button>
+      </div>
+    </div>
+
+    <div id="settingsModal" class="settings-modal">
+        <div class="container settings-container">
+            <button class="close-btn" onclick="closeSettings()">✕</button>
+            <h1>設&nbsp;定</h1>
+            <div class="settings-content">
+                <div class="settings-menu">
+                    <button onclick="showTab('music', this)">音&nbsp;&nbsp;&nbsp;樂</button>
+                    <button onclick="showTab('nickname', this)">暱&nbsp;&nbsp;&nbsp;稱</button>
+                    <button onclick="showTab('account', this)">帳&nbsp;&nbsp;&nbsp;號</button>
+                    <button onclick="showTab('about', this)">關&nbsp;&nbsp;&nbsp;於</button>
+                </div>
+                <div class="settings-tab-content">
+                    <div id="tab-music" class="tab-panel">
+                        <div class="control-group">
+                            <label>背景音樂：</label>
+                            <button class="icon-button" onclick="toggleVolume(this, 'bgm')">🔊</button>
+                            <input type="range" id="bgm-slider" min="0" max="100" value="20" oninput="updateVolume('bgm', this.value)" />
+                            <span id="bgm-volume">20</span>
+                        </div>
+                        <div class="control-group">
+                            <label>人物聲音：</label>
+                            <button class="icon-button" onclick="toggleVolume(this, 'voice')">🔊</button>
+                            <input type="range" id="voice-slider" min="0" max="100" value="20" oninput="updateVolume('voice', this.value)" />
+                            <span id="voice-volume">20</span>
+                        </div>
+                    </div>
+                    <div id="tab-nickname" class="tab-panel" style="display:none">
+                        <div class="control-group">
+                            <label>更改暱稱：</label>
+                            <input type="text" placeholder="輸入新暱稱" />
+                        </div>
+                    </div>
+                    <div id="tab-account" class="tab-panel" style="display:none">
+                        <div class="control-group">
+                            <label>原始密碼：</label>
+                            <input type="password" placeholder="輸入原始密碼" />
+                        </div>
+                        <div class="control-group">
+                            <label>更改密碼：</label>
+                            <input type="password" placeholder="輸入新密碼" />
+                        </div>
+                        <div class="control-group">
+                            <label>確認密碼：</label>
+                            <input type="password" placeholder="再次輸入新密碼" />
+                        </div>
+                        <div class="account-buttons">
+                            <button onclick="showModal('確定要刪除帳號嗎？此操作無法復原。', 'delete')">刪除帳號</button>
+                            <button onclick="showModal('確定要登出嗎？', 'logout')">登&nbsp;&nbsp;出</button>
+                        </div>
+                    </div>
+                    <div id="tab-about" class="tab-panel" style="display:none">
+                        <p style="font-size: 1.5rem; text-align: left;">關於此遊戲的說明文字...</p>
+                    </div>
+                    <div class="footer-buttons">
+                        <button onclick="submitSettings()">確&nbsp;&nbsp;定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast"></div>
+
+    <div id="modal">
+        <div>
+            <p id="modal-message"></p>
+            <button onclick="confirmModal(true)">確定</button>
+            <button onclick="confirmModal(false)">取消</button>
+        </div>
+    </div>
+
+    <script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>

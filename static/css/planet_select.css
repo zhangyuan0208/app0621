@@ -1,25 +1,46 @@
 body {
     margin: 0;
-    overflow-x: hidden;
+    background-image: url('/static/img/backgrounds/planets.jpg'); /* <-- 請換成您包含所有星球的寬版背景圖 */
+    background-size: auto 100vh; /* 高度填滿螢幕，寬度自適應 */
+    background-attachment: fixed; /* 關鍵：背景固定不動 */
+    background-position: left center;
+    background-repeat: no-repeat;
 }
 
+/* 【修改】Wrapper 現在只是一個透明的、用來產生捲動範圍的容器 */
 .wrapper {
     width: 200vw;
     height: 100vh;
-    background-image: url('/static/img/backgrounds/星空2.jpg');
-    background-size: cover;
     position: relative;
+    /* background-image 相關樣式已被移除 */
 }
 
-.planet {
+/* 【全新】定義熱區 (Hotspot) 的通用樣式 */
+.planet-hotspot {
     position: absolute;
-    animation: float 4s ease-in-out infinite;
+    display: block; /* 讓 <a> 標籤可以設定寬高 */
+    cursor: pointer;
+    /* 開發時可取消註解下面這行，用來觀察熱區的實際位置和大小 */
+    /* border: 1px dashed yellow; */
 }
 
-.planet img {
-    height: 100%;
-    cursor: pointer;
-}
+/* 【核心修改】
+   以下是每個星球「熱區」的寫死位置。
+   您需要親自對照您的新背景圖，手動微調這些 top, left, width, height 數值，
+   直到熱區完美覆蓋圖中的星球為止。
+*/
+.Mercury  { top: 40%; left: 6%;   width: 6%;  height: 12vh; }
+.Venus    { top: 20%; left: 15%;  width: 8%;  height: 16vh; }
+.Earth    { top: 60%; left: 22%;  width: 10%; height: 20vh; }
+.Mars     { top: 35%; left: 32%;  width: 7%;  height: 14vh; }
+.Jupiter  { top: 30%; left: 42%;  width: 15%; height: 30vh; }
+.Saturn   { top: 45%; left: 56%;  width: 20%; height: 25vh; }
+.Uranus   { top: 70%; left: 69%;  width: 11%; height: 22vh; }
+.Neptune  { top: 40%; left: 79%;  width: 11%; height: 22vh; }
+.Pluto    { top: 55%; left: 90%;  width: 5%;  height: 10vh; }
+
+
+/* --- 熱區內的 Tooltip 和鎖頭樣式 --- */
 
 .tooltip {
     position: absolute;
@@ -37,26 +58,23 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.planet:hover .tooltip {
+/* 【修改】當滑鼠移到「熱區」上時，顯示 tooltip */
+.planet-hotspot:hover .tooltip {
     opacity: 1;
 }
 
-@keyframes float {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(10px); }
-    100% { transform: translateY(0px); }
+/* 【修改】鎖頭圖示在熱區中的位置 */
+.planet-hotspot .lock {
+    width: 60%; /* 鎖頭的大小，可自行調整 */
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    pointer-events: none; /* 避免擋住點擊 */
+    z-index: 2;
 }
-
-/* 【保留這些樣式】這些是您不想放在資料庫的固定位置資訊 */
-.Mercury  { height: 14vh; bottom: 47%; left: 6%; animation-duration: 4s; }
-.Venus    { height: 16vh; bottom: 65%; left: 15%; animation-duration: 3s; }
-.Earth    { height: 21vh; bottom: 20%; left: 22%; animation-duration: 5s; }
-.Mars     { height: 14vh; bottom: 50%; left: 32%; animation-duration: 6s; }
-.Jupiter  { height: 33vh; bottom: 29%; left: 42%; animation-duration: 4s; }
-.Saturn   { height: 40vh; bottom: 50%; left: 56%; animation-duration: 5s; }
-.Uranus   { height: 21vh; bottom: 15%; left: 69%; animation-duration: 3s; }
-.Neptune  { height: 21vh; bottom: 49%; left: 79%; animation-duration: 6s; }
-.Pluto    { height: 12vh; bottom: 36%; left: 90%; animation-duration: 4s; }
 
 /* ... 其他箭頭、鎖頭、重置按鈕的樣式保持不變 ... */
 .arrow {

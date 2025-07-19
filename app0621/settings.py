@@ -199,13 +199,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_REDIRECT_URL = 'main_menu'
-LOGOUT_REDIRECT_URL = 'login_view'
+# 2. 登出後要導向的頁面 URL 名稱
+ACCOUNT_LOGOUT_REDIRECT_URL = 'login_view' # 這裡使用您登入頁的 URL name
+
+# 3. 允許直接透過 GET 請求登出（讓 <a href="{% url 'logout' %}"> 就能登出）
+ACCOUNT_LOGOUT_ON_GET = True
 
 # Email 相關設定
 # 告訴 allauth 使用我們自訂的註冊表單
 ACCOUNT_SIGNUP_FORM_CLASS = 'test0621.forms.UserRegistrationForm' # 請將 test0621 換成您的 app 名稱
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_LOGIN_METHODS = ['username', 'email']
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
 
 # Google Provider 相關設定
 SOCIALACCOUNT_PROVIDERS = {
@@ -233,3 +237,10 @@ else:
     # --- 開發環境 Email 設定 ---
     # 所有郵件都會直接印在 console 中，方便測試
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ===================================================================
+# AI 小學堂 API 金鑰設定 (新增此區塊)
+# ===================================================================
+# 程式會優先嘗試從「環境變數」讀取金鑰。
+# 如果找不到環境變數（例如在您的本機開發電腦上），
+# 它會使用後面提供的預設值。

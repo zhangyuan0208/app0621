@@ -38,10 +38,10 @@ class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=False, label="電子郵件", help_text="（選填，建議填寫以便找回密碼）")
 
     class Meta(UserCreationForm.Meta):
-        # 指定這個表單對應到我們的自訂 User 模型
         model = User
-        # 指定在表單上要顯示的欄位順序
-        fields = ('username', 'nickname', 'email')
+        # 【修改這裡】
+        # 繼承父類別的欄位，並加上我們自訂的欄位
+        fields = UserCreationForm.Meta.fields + ('nickname', 'email')
 
     def save(self, commit=True):
         user = super().save(commit=False)

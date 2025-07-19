@@ -28,4 +28,9 @@ urlpatterns = [
     # 3. 將所有其他的請求，全部轉交給我們的 app (test0621) 去處理
     # 空字串 '' 代表網站的根目錄 (例如 http://127.0.0.1:8000/)
     path('', include('test0621.urls')), # 請確認您的 app 名稱是否為 test0621
+
+    # ✨【新增這一行】✨
+    # 掛載 django-allauth 提供的所有帳號管理網址
+    # 這會自動包含 /accounts/login/, /accounts/logout/, /accounts/signup/ 等
+    path('accounts/', include('allauth.urls'))
 ]

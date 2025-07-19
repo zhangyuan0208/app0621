@@ -14,6 +14,12 @@ from .forms import (
     NicknameChangeForm, CustomPasswordChangeForm
 )
 
+
+import requests
+import json
+from django.conf import settings
+
+
 # 引入所有需要的模型
 from .models import (
     LoginType, User, Planet, Chapter, Dialogue, Question, UserProgress,
@@ -34,8 +40,9 @@ def register_view(request):
             user = form.save()  # 執行我們在 forms.py 中定義的 save 方法，建立使用者
             # 註冊後，將登入方式設為 '一般'
             user.login_type = LoginType.NORMAL
-            user.save(update_fields=['login_type'])            
-            login(request, user)  # 註冊後自動登入
+            user.save(update_fields=['login_type'])    
+            # 在呼叫 login 時，明確指定後端驗證方式        
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, "註冊成功！歡迎加入我們的世界。")
             return redirect('main_menu') # 重定向到主選單
     else:
@@ -81,6 +88,7 @@ def google_login_placeholder_view(request):
     messages.info(request, "Google 登入功能需整合第三方服務。")
     return redirect('login_view')
 
+
 @login_required
 def logout_view(request):
     """處理使用者登出"""
@@ -94,25 +102,33 @@ def logout_view(request):
 
 @login_required
 def main_menu_view(request):
-    """遊戲主選單，顯示五顆星球"""
+    """
+    遊戲主選單，包含每日打卡檢查與使用者資訊。
+    """
     today = date.today()
+    
     # 檢查今天是否已打卡
     can_check_in = not DailyCheckIn.objects.filter(user=request.user, check_in_date=today).exists()
     
+    # 建立要傳遞給模板的 context 字典
     context = {
-        'can_check_in': can_check_in
+        'can_check_in': can_check_in,
+        'user': request.user  # 【合併】將使用者物件也加入 context
     }
-    return render(request, 'main_menu.html', context)
+    
+    # 渲染 main_menu.html (您的模板檔案名稱是 home.html，請確認)
+    return render(request, 'home.html', context)
 
 # ===================================================================
 # III. 遊戲核心系統 (Planet 1: Game Core)
 # ===================================================================
 
 @login_required
-def planet_list_view(request):
-    """顯示所有遊戲星球 (九大行星)"""
+def planet_select_view(request): # <-- 1. 函式名稱改為 planet_select_view
+    """顯示所有可供選擇的星球"""
     planets = Planet.objects.all()
-    return render(request, 'game/planet_list.html', {'planets': planets})
+    # <-- 2. 樣板路徑改為我們之前建議的 planet_select.html
+    return render(request, 'planet_select.html', {'planets': planets})
 
 @login_required
 def chapter_list_view(request, planet_id):
@@ -272,17 +288,44 @@ def full_story_list_view(request):
     # 【修改】使用 prefetch_related 來優化效能
     stories = FullStory.objects.all().prefetch_related('characters').order_by('planet', 'chapter__chapter_number')
     
-    return render(request, 'features/full_story_list.html', {'stories': stories})
+    return render(request, 'features/full_story.html', {'stories': stories})
 
+# 視圖一：只負責顯示頁面
 @login_required
 def ai_school_view(request):
-    """星球3: AI小學堂 (框架)"""
-    if request.method == 'POST':
-        # user_question = request.POST.get('question')
-        # ai_answer = call_gemini_api(user_question) # 呼叫 AI API
-        # return JsonResponse({'answer': ai_answer})
-        return JsonResponse({'answer': "AI 回答功能開發中，請期待！"})
+    """星球3: AI小學堂 - 顯示聊天介面"""
     return render(request, 'features/ai_school.html')
+
+# 視圖二：只負責處理來自前端的提問，並安全地呼叫外部 API
+@login_required
+def ai_ask_view(request):
+    """處理前端發來的提問，並作為代理向 AI API 發出請求"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            messages = data.get('messages', [])
+
+            if not messages:
+                return JsonResponse({'error': '沒有收到任何訊息'}, status=400)
+
+            headers = {
+                "Content-Type": "application/json",
+                "api-key": settings.AZURE_API_KEY # 從 settings 安全地讀取金鑰
+            }
+            body = {
+                "messages": messages,
+                "temperature": 0.5
+            }
+
+            response = requests.post(settings.AZURE_ENDPOINT, headers=headers, json=body)
+            response.raise_for_status() 
+
+            return JsonResponse(response.json())
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': '只接受 POST 請求'}, status=405)
 
 @login_required
 def settings_view(request):

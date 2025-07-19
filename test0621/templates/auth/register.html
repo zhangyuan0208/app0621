@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊新帳號</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="overlay">
+            <h2>註冊新帳號</h2>
+
+            <div id="error-message" class="error-message"></div>
+            
+            {% if form.errors %}
+            <div class="messages">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <div class="alert alert-error">{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form id="register-form" method="POST" action="{% url 'register_view' %}" class="auth-form">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <div class="btn-group">
+                    <button class="bubble-button register-button" type="submit">完成註冊</button>
+                </div>
+
+                <a href="{% url 'login_view' %}" class="bubble-button back-button">返回登入</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>

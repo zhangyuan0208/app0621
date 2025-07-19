@@ -1,6 +1,4 @@
-/* --- login.css --- */
-
-/* Google 字體 (可選) */
+/* static/css/auth.css */
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200,900');
 
 /* 基本設定 */
@@ -9,90 +7,87 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Microsoft JhengHei', 'Heiti TC', sans-serif;
-    overflow: hidden; /* 隱藏滾動條 */
+    overflow: hidden;
 }
 
-/* --- 啟動畫面樣式 --- */
-#splash-screen {
-    background-image: url('../img/backgrounds/進入遊戲.png'); /* 請將 'enter_game.jpg' 換成您的啟動畫面背景圖檔名 */
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    visibility: visible;
-    opacity: 1;
-    /* 過渡效果：讓淡出動畫持續 0.5 秒 */
-    transition: visibility 0.5s, opacity 0.5s ease-out;
-}
-
-@keyframes blink-effect {
-    50% { opacity: 0; }
-}
-
-#splash-text {
-    color: white;
-    font-size: 3em;
-    font-weight: bold;
-    text-shadow: 6px 6px 3px rgba(0, 0, 0, 0.7);
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    bottom: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: blink-effect 2.5s ease-in-out infinite;
-}
-
-
-/* --- 登入/註冊畫面樣式 --- */
-#login-container {
+/* --- 登入/註冊共用背景容器 --- */
+.auth-wrapper {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* 預設隱藏 */
-    display: none;
-    background-image: url('../img/backgrounds/login.jpg'); /* 請將 'login_bg.jpg' 換成您的登入頁背景圖檔名 */
+    background-image: url('../img/backgrounds/login.jpg');
     background-size: cover;
     background-position: center;
 }
 
-#login-container .overlay {
-    background: rgba(0, 0, 0, 0.6);
+/* 預設隱藏，由 JS 控制顯示 */
+#login-container {
+    display: none;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.65);
     padding: 30px 40px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    width: 320px;
+    width: 100%;
+    max-width: 360px; /* 稍微加寬以容納更多按鈕 */
     text-align: center;
     color: white;
+
+        /* 【新增以下兩行】 */
+    max-height: 90vh;      /* 1. 設定最大高度，避免區塊超出螢幕 */
+    overflow-y: auto;      /* 2. 內容過多時，垂直方向自動顯示滾輪 */
 }
 
-#login-container h2 {
+/* --- 美化滾輪樣式 (可選，適用於 Webkit 核心的瀏覽器如 Chrome, Edge, Safari) --- */
+.overlay::-webkit-scrollbar {
+  width: 6px; /* 滾輪寬度 */
+}
+
+.overlay::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* 滾輪軌道的顏色 */
+  border-radius: 3px;
+}
+
+.overlay::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4); /* 滾輪本身的顏色 */
+  border-radius: 3px;
+}
+
+.overlay::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* 滑鼠移上去時的顏色 */
+}
+
+h2 {
     margin-top: 0;
     margin-bottom: 25px;
 }
 
 /* Django 表單欄位的樣式 */
-#login-container form p {
+.auth-form p {
     margin-bottom: 20px;
     text-align: left;
 }
-#login-container form label {
+.auth-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
-#login-container form input {
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    color: #333; /* 讓輸入的文字是深色，方便閱讀 */
+}
+/* Django allauth 會在 label 加上 colon:，可以隱藏它 */
+.auth-form label .colon {
+    display: none;
 }
 
 /* 訊息提示 (例如登入失敗) */
@@ -103,13 +98,14 @@ body, html {
     border: 1px solid #f5c6cb;
     border-radius: 5px;
     margin-bottom: 15px;
+    text-align: left;
 }
 
 /* 按鈕群組 */
 .btn-group {
     display: flex;
     justify-content: space-between;
-    gap: 15px; /* 按鈕間的空隙 */
+    gap: 15px;
     margin-bottom: 15px;
 }
 
@@ -124,6 +120,7 @@ body, html {
     font-size: 16px;
     color: white;
     text-decoration: none;
+    text-align: center;
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -135,7 +132,10 @@ body, html {
     box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-.btn-group .bubble-button { width: 48%; }
+/* 各種按鈕的顏色和寬度 */
+.btn-group .bubble-button { flex: 1; } /* 讓登入/註冊按鈕平分寬度 */
+.bubble-button.login-button { background-color: #007bff; }
 .bubble-button.register-button { background-color: #e91e63; }
 .guest-button { background-color: #4CAF50; margin-bottom: 15px; }
 .google-button { background-color: #db4437; }
+.back-button { background-color: #6c757d; margin-top: 15px; }
